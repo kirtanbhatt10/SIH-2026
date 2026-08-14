@@ -97,3 +97,22 @@ class ReverseShellStatus(BaseModel):
     last_seen: Optional[float] = None
     admin_privileges: Optional[bool] = None
     active_keylogger: bool = False
+
+
+# ---------------------------------------------------------------------------
+# Backend 1 — Threat Management Models (TEMPORARY contract, see integration-contract.md)
+# ---------------------------------------------------------------------------
+
+
+class FrequencyRange(BaseModel):
+    min: float = Field(..., ge=0)
+    max: float = Field(..., ge=0)
+
+
+class ThreatEvent(BaseModel):
+    detected: bool
+    confidence: float = Field(..., ge=0.0, le=1.0)
+    risk: str
+    frequency: FrequencyRange
+    duration: float = Field(..., ge=0)
+    pattern: str

@@ -9,3 +9,6 @@ mss>=9.0.1
 pynput>=1.7.6
 requests>=2.31.0
 
+# Testing
+pytest>=7.0.0
+httpx>=0.24.0

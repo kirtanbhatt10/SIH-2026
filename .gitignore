@@ -22,3 +22,33 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Generated audio/data
+*.wav
+*.mp3
+*.flac
+*.npy
+*.npz
+generated_payloads/
+forensic_captures/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Model binaries
+*.pt
+*.pth
+*.onnx
+*.h5
+*.pkl
