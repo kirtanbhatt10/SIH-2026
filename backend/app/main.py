@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from backend.app.routes.analysis import router as analysis_router
+from backend.app.routes.threats import router as threats_router
 
 
 app = FastAPI(
@@ -20,3 +21,4 @@ def system_status():
 
 
 app.include_router(analysis_router)
+app.include_router(threats_router)
