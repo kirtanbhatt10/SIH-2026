@@ -1,0 +1,24 @@
+# ── Audio & images are ignored by default ──────────────────────────────
+# Raw recordings and generated plots are large and numerous; they stay local.
+*.wav
+*.png
+
+# ── EXCEPTION: curated evidence is committed ───────────────────────────
+# docs/evidence/ holds a small, hand-picked set of artifacts that back our
+# SIH claims (hardware limits, spectral comparisons). Keep it lean:
+#   • WAV: mono, 16-bit, <= 2 s  (~188 KB each)
+#   • PNG: dpi=110, <= 400 KB each
+#   • Target total: under ~15 MB for the whole folder
+# Anything not needed to defend a claim in a report/PPT does NOT belong here.
+!docs/evidence/
+!docs/evidence/**/
+!docs/evidence/**/*.wav
+!docs/evidence/**/*.png
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.pytest_cache/
+.pytest_cache/
