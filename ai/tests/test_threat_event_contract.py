@@ -64,7 +64,7 @@ REQUIRED_FIELDS = {
 
 def test_event_has_all_contract_fields():
     p = DSPPipeline()
-    event = run(p, p.generate_attack_signal("fsk", duration_sec=2.0))
+    event = run(p, p.generate_test_signal("fsk", duration_sec=2.0))
     assert REQUIRED_FIELDS.issubset(event.keys())
 
 
@@ -72,13 +72,13 @@ def test_event_is_json_serializable():
     """Backend returns this over HTTP; numpy scalars would break json.dumps."""
     import json
     p = DSPPipeline()
-    event = run(p, p.generate_attack_signal("fsk", duration_sec=2.0))
+    event = run(p, p.generate_test_signal("fsk", duration_sec=2.0))
     json.dumps(event)
 
 
 def test_detects_fsk_with_correct_carriers():
     p = DSPPipeline()
-    event = run(p, p.generate_attack_signal(
+    event = run(p, p.generate_test_signal(
         "fsk", duration_sec=3.0, freq_mark=19000, freq_space=20500, baud_rate=25))
 
     assert event["detected"] is True
@@ -91,7 +91,7 @@ def test_detects_fsk_with_correct_carriers():
 def test_duration_comes_from_segmentation_not_one_frame():
     """A single chunk is ~42.7 ms; a 3 s signal must report ~3 s."""
     p = DSPPipeline()
-    event = run(p, p.generate_attack_signal("fsk", duration_sec=3.0))
+    event = run(p, p.generate_test_signal("fsk", duration_sec=3.0))
     assert event["duration"] > 1.0, "duration collapsed to a single frame"
     assert event["duration"] == pytest.approx(3.0, abs=0.5)
 
@@ -102,7 +102,7 @@ def test_carrier_freqs_preserved_alongside_range():
     evidence that IS the FSK signature. Both must be present.
     """
     p = DSPPipeline()
-    event = run(p, p.generate_attack_signal(
+    event = run(p, p.generate_test_signal(
         "fsk", duration_sec=2.0, freq_mark=19000, freq_space=20500))
     assert isinstance(event["carrier_freqs"], list)
     assert len(event["carrier_freqs"]) >= 2
@@ -110,7 +110,7 @@ def test_carrier_freqs_preserved_alongside_range():
 
 def test_snr_is_measured():
     p = DSPPipeline()
-    event = run(p, p.generate_attack_signal("fsk", duration_sec=2.0))
+    event = run(p, p.generate_test_signal("fsk", duration_sec=2.0))
     assert event["snr"] > 0
 
 
@@ -134,7 +134,7 @@ def test_no_chunks_processed_is_safe():
 
 def test_reset_clears_event_state():
     p = DSPPipeline()
-    run(p, p.generate_attack_signal("fsk", duration_sec=2.0))
+    run(p, p.generate_test_signal("fsk", duration_sec=2.0))
     p.reset()
     event = p.to_threat_event()
     assert event["chunks_analyzed"] == 0
@@ -165,7 +165,7 @@ def test_two_confidences_are_distinct_fields():
     They must not be conflated into one number.
     """
     p = DSPPipeline()
-    event = run(p, p.generate_attack_signal("fsk", duration_sec=2.0))
+    event = run(p, p.generate_test_signal("fsk", duration_sec=2.0))
     assert "confidence" in event
     assert "suspicion_score" in event
     assert 0.0 <= event["confidence"] <= 1.0

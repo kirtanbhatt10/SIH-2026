@@ -257,7 +257,7 @@ def test_pipeline_full_process():
 def test_pipeline_attack_generation():
     pipeline = DSPPipeline(sample_rate=SAMPLE_RATE)
     for attack_type in ["fsk", "ook", "chirp", "tone"]:
-        signal = pipeline.generate_attack_signal(attack_type, duration_sec=0.5)
+        signal = pipeline.generate_test_signal(attack_type, duration_sec=0.5)
         assert len(signal) > 0, f"Empty signal for {attack_type}"
 
 def test_pipeline_performance():

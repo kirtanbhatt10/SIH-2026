@@ -22,6 +22,26 @@ Who uses this:
     You       — test every DSP module with known signals
 """
 
+# ─────────────────────────────────────────────────────────────────────────
+# SCOPE (Backend 1 audit, point 3)
+#
+# SignalGenerator is a TEST FIXTURE. It is not the attack simulator —
+# Backend 2 owns that (payload encoding, modulation, speaker transmission,
+# over-the-air behaviour).
+#
+# Used for:
+#   • deterministic fixtures for the automated test suite
+#   • baseline labelled training data for AI 2 (generate_dataset)
+#   • driving demo/live_demo.py without hardware
+#
+# Produces idealised in-memory arrays with NO channel effects: no room
+# acoustics, no speaker/mic frequency response, no multipath, no distance
+# attenuation. Any claim about real-world performance must come from
+# Backend 2's WAV files or physical recordings, never from this module.
+#
+# Never called on the runtime detection path.
+# ─────────────────────────────────────────────────────────────────────────
+
 import os
 import json
 from typing import Optional

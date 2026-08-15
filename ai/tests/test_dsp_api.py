@@ -3,7 +3,7 @@ DSP API Integration & Interface Unit Tests
 =============================================
 Validates the public DSPPipeline API methods:
 process(), process_features_only(), get_verdict(), reset(),
-get_config(), generate_attack_signal(), generate_training_dataset(),
+get_config(), generate_test_signal(), generate_training_dataset(),
 and JSON serializability.
 """
 
@@ -60,7 +60,7 @@ def test_2_and_3_fsk_processing_and_verdict():
     pipeline = DSPPipeline(sample_rate=SAMPLE_RATE, n_fft=N_FFT)
 
     # Generate 2-second FSK signal (18500 Hz & 19500 Hz)
-    fsk_signal = pipeline.generate_attack_signal(
+    fsk_signal = pipeline.generate_test_signal(
         "fsk",
         duration_sec=2.0,
         freq_mark=18500.0,
@@ -160,7 +160,7 @@ def test_5_attack_signal_generation():
 
     attack_types = ["fsk", "ook", "chirp", "tone"]
     for atype in attack_types:
-        signal = pipeline.generate_attack_signal(atype, duration_sec=duration)
+        signal = pipeline.generate_test_signal(atype, duration_sec=duration)
         assert signal.ndim == 1, f"Signal for {atype} is not 1D"
         assert len(signal) == expected_samples, f"Expected {expected_samples} samples for {atype}, got {len(signal)}"
         assert np.all(np.isfinite(signal)), f"Non-finite values in {atype} signal"

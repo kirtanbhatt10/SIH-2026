@@ -176,7 +176,7 @@ def on_audio_chunk(raw_pcm_buffer):
 
 ```python
 # Generate attack signals for the simulator UI
-signal = pipeline.generate_attack_signal("fsk", duration_sec=5.0,
+signal = pipeline.generate_test_signal("fsk", duration_sec=5.0,
     freq_mark=19000, freq_space=20500, baud_rate=25)
 pipeline.save_wav(signal, "attack.wav")
 
@@ -349,8 +349,8 @@ From the main `result`:
 Call Backend's API endpoint, which internally uses:
 
 ```python
-signal = pipeline.generate_attack_signal(
-    attack_type="fsk",       # "fsk", "ook", "chirp", "tone"
+signal = pipeline.generate_test_signal(
+    signal_type="fsk",       # "fsk", "ook", "chirp", "tone"
     duration_sec=5.0,
     snr_db=15,               # optional noise mixing
     freq_mark=19000,          # FSK-specific

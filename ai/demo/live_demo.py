@@ -170,7 +170,7 @@ def main():
             "ook": {"carrier_freq": 19500, "baud_rate": 30},
             "chirp": {"freq_start": 18500, "freq_end": 21500, "num_sweeps": 6},
         }
-        signal = pipeline.generate_attack_signal(
+        signal = pipeline.generate_test_signal(
             args.attack,
             duration_sec=args.duration,
             snr_db=args.snr,

@@ -65,7 +65,7 @@ def main():
         print(f"\n  Generating {name.upper()} spectrogram...")
         pipeline.reset()
 
-        signal = pipeline.generate_attack_signal(
+        signal = pipeline.generate_test_signal(
             config["type"],
             duration_sec=5.0,
             snr_db=15,
@@ -123,7 +123,7 @@ def main():
                 sig = gen.generate_ambient_noise(duration_sec=5.0, amplitude=0.3)
             else:
                 cfg = scenarios[sname]
-                sig = pipeline.generate_attack_signal(
+                sig = pipeline.generate_test_signal(
                     cfg["type"], duration_sec=5.0, snr_db=15, **cfg["kwargs"]
                 )
 
@@ -160,7 +160,7 @@ def main():
 
     # ── Generate demo WAV file for live playback ──
     print("\n  Generating demo attack WAV...")
-    demo_signal = pipeline.generate_attack_signal(
+    demo_signal = pipeline.generate_test_signal(
         "fsk",
         duration_sec=10.0,
         snr_db=20,

@@ -21,7 +21,7 @@ Backend 2 — for the attack simulator:
     from dsp import DSPPipeline
 
     pipeline = DSPPipeline()
-    attack   = pipeline.generate_attack_signal("fsk", duration_sec=3.0)
+    attack   = pipeline.generate_test_signal("fsk", duration_sec=3.0)
     pipeline.save_wav(attack, "attack_demo.wav")
 """
 
@@ -64,7 +64,7 @@ class DSPPipeline:
             # → send result to AI 2 model, Frontend WebSocket, logging, etc.
 
     Attack simulation:
-        signal = pipeline.generate_attack_signal("fsk")
+        signal = pipeline.generate_test_signal("fsk")
         pipeline.save_wav(signal, "demo_attack.wav")
 
     Get accumulated verdict (after processing many chunks):
@@ -274,20 +274,46 @@ class DSPPipeline:
         self.spectrogram.save_spectrogram_image(filepath)
 
     # ──────────────────────────────────────────────────────────
-    # Attack signal generation (Backend 2: attack simulator)
+    # Test-signal generation - FIXTURE ONLY
+    # Backend 2 owns the real attack simulator. See audit point 3.
     # ──────────────────────────────────────────────────────────
 
-    def generate_attack_signal(
+    def generate_test_signal(
         self,
-        attack_type: str = "fsk",
+        signal_type: str = "fsk",
         duration_sec: float = 3.0,
         snr_db: Optional[float] = None,
         **kwargs,
     ) -> np.ndarray:
         """
-        Generate a synthetic attack signal for the attack simulator.
+        Generate a synthetic signal for TESTING and TRAINING.
+
+        SCOPE (per Backend 1 audit, point 3)
+        ------------------------------------
+        This is a TEST FIXTURE, not an attack simulator. Backend 2 owns the
+        real simulator (payload encoding, modulation, speaker transmission,
+        over-the-air characteristics).
+
+        What this is for:
+          - deterministic fixtures for the automated test suite
+          - baseline labelled training data for AI 2
+          - driving demo/live_demo.py without hardware
+
+        It produces idealised, in-memory numpy arrays with no channel effects
+        (no room acoustics, no speaker/mic frequency response, no multipath).
+        Validation against realistic audio must use Backend 2's WAV files.
+
+        This method is NEVER called on the runtime detection path; process()
+        does not touch it.
+
+        Parameters
+        ----------
+        signal_type : "fsk" | "ook" | "chirp" | "tone"
+        duration_sec : float
+        snr_db : float, optional - mix in noise at this SNR
         """
         gen = self.signal_generator
+        attack_type = signal_type
 
         if attack_type == "fsk":
             signal = gen.generate_fsk(duration_sec=duration_sec, **kwargs)
@@ -298,12 +324,22 @@ class DSPPipeline:
         elif attack_type == "tone":
             signal = gen.generate_tone(duration_sec=duration_sec, **kwargs)
         else:
-            raise ValueError(f"Unknown attack type: {attack_type}. Use 'fsk', 'ook', 'chirp', or 'tone'.")
+            raise ValueError(f"Unknown signal type: {signal_type}. Use 'fsk', 'ook', 'chirp', or 'tone'.")
 
         if snr_db is not None:
             signal = gen.mix_with_noise(signal, snr_db=snr_db)
 
         return signal
+
+    def generate_attack_signal(self, *args, **kwargs) -> np.ndarray:
+        """
+        Deprecated alias for generate_test_signal().
+
+        Renamed because "attack signal" implied this module owned attack
+        simulation, which belongs to Backend 2. Kept so existing callers and
+        the demo scripts keep working.
+        """
+        return self.generate_test_signal(*args, **kwargs)
 
     def save_wav(self, audio: np.ndarray, filepath: str):
         """Save audio array as WAV file."""
