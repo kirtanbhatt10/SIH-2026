@@ -471,6 +471,11 @@ class DSPPipeline:
                 + float(self.analyzer.last_result.get("confidence", 0.0)) * 0.5,
                 0.0,
             )
+        # A 'none' pattern must never report non-zero confidence. Without this,
+        # a run of all-'none' frames produced a unanimous vote share of 1.0,
+        # which blended to confidence 0.5 on an event with nothing detected.
+        if pattern == "none":
+            confidence = 0.0
 
         return _make_json_serializable({
             "schema_version": "1.0.0-dsp",
