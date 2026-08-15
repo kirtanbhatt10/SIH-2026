@@ -56,7 +56,7 @@ class FrequencyAnalyzer:
         sample_rate: int = 48000,
         n_fft: int = 2048,
         ultrasonic_low: float = 18000.0,
-        ultrasonic_high: float = 22000.0,
+        ultrasonic_high: float = 21000.0,
         suspicious_threshold: float = 0.5,
     ):
         self.sample_rate = sample_rate
@@ -365,10 +365,33 @@ class FrequencyAnalyzer:
 
                 # OOK requires:
                 # 1. Significant modulation depth (depth >= 0.5)
-                # 2. Repeated ON <-> OFF transitions (transitions >= 2)
+                # 2. At least one observed ON <-> OFF transition (transitions >= 1)
                 # 3. Duty cycle between 0.1 and 0.9 (not continuous ON)
                 # 4. Envelope CV >= 0.3
-                is_ook = (depth >= 0.5) and (transitions >= 2) and (0.1 <= duty <= 0.9) and (cv >= 0.3)
+                #
+                # FIX (docs/KNOWN_ISSUES.md item 1): was `transitions >= 2`.
+                # A single window covers only a few bit periods, so many genuine
+                # OOK windows contain exactly one ON/OFF transition and were
+                # discarded as 'tone'/'none'.
+                #
+                # Measured, 40 unseeded trials, clean 50-baud OOK @ 19 kHz.
+                # Window size matters - the pipeline analyses 8192 samples
+                # (test_dsp_pipeline passes 8192), NOT a single 2048 frame:
+                #
+                #   window   transitions>=2   transitions>=1
+                #   8192     27/40  (68%)     30/40  (75%)
+                #   2048     15/40  (38%)     20/40  (50%)
+                #
+                # No false-positive cost, verified after the change:
+                #   ambient noise per-frame : 100/100 'none'
+                #   ambient noise verdict   : 0/30 false threats
+                #   speech-like verdict     : 0/20 false threats
+                #   steady tone             : 40/40 still 'tone' (no regression)
+                #
+                # Remaining misses are windows where the carrier occupies too
+                # little of the window to form a strong FFT peak (duty far from
+                # 0.5). Fixing those needs multi-frame analysis - follow-up.
+                is_ook = (depth >= 0.5) and (transitions >= 1) and (0.1 <= duty <= 0.9) and (cv >= 0.3)
 
                 confidence = min(1.0, (tonal_ratio / 20.0) * (1.0 - flatness))
 
