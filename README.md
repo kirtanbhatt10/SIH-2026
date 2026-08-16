@@ -47,15 +47,23 @@ SIH--2026/
 │   │   └── config.py        ← Configuration (sample rate, frequencies)
 │   ├── models/
 │   │   └── data_schemas.py  ← All Pydantic models
-│   └── services/
-│       ├── threat_service.py    ← In-memory threat storage
-│       ├── payload_service.py   ← Encode/decode/Goertzel (BFSK codec)
-│       ├── audio_service.py     ← Audio streaming & forensic detection
-│       └── acoustic_service.py  ← CLI acoustic listener
+│   ├── services/
+│   │   ├── threat_service.py    ← In-memory threat storage
+│   │   ├── payload_service.py   ← Encode/decode/Goertzel (BFSK codec)
+│   │   ├── audio_service.py     ← Audio streaming & forensic detection
+│   │   └── acoustic_service.py  ← CLI acoustic listener
+│   └── scripts/
+│       └── generate_sample.py   ← Reference WAV + metadata generator
 ├── docs/
-│   └── integration-contract.md  ← Cross-team integration contract
+│   ├── integration-contract.md  ← Cross-team integration contract
+│   └── backend2-simulator.md    ← Backend 2 simulator documentation
+├── samples/
+│   └── backend2/                ← AI handoff reference sample (WAV + JSON)
+├── isolated/
+│   └── README.md                ← Non-simulator code audit notes
 ├── tests/
 │   ├── test_payload_roundtrip.py
+│   ├── test_backend2_simulator.py
 │   ├── test_backend1_api.py
 │   └── test_integration.py
 ├── requirements.txt
@@ -140,7 +148,7 @@ Controlled Payload
 See [docs/integration-contract.md](docs/integration-contract.md) for the full cross-team data contract covering:
 - Simulator → Detector handoff
 - Detector → AI handoff
-- AI → Backend contract (ThreatEvent schema — TEMPORARY)
+- AI → Backend contract (ThreatEvent schema `1.0.0-dsp` — **IMPLEMENTED** in Backend 1)
 - Backend → Frontend endpoints
 
 ---

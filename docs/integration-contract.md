@@ -1,7 +1,7 @@
 # SIH 2026 Acoustic Shield — Integration Contract
 
-**Document owner:** Backend 1 (Backend Lead)  
-**Last updated:** 2026-08-14  
+**Document owner:** Backend 1 (Backend Lead)
+**Last updated:** 2026-08-14
 **Purpose:** Central technical handoff between Attack Simulator, Detector, AI, Backend, and Frontend teams.
 
 ---
@@ -121,24 +121,37 @@ Frontend Dashboard
 
 ## 3. Simulator -> Detector Contract
 
-**Status: PENDING / TO BE DECIDED**
+**Status: PARTIAL — Software simulator parameters VERIFIED; hardware propagation TO BE MEASURED**
 
-Backend 2 (Attack Simulator) is expected to produce audio and metadata for the Detector team. Final values have **not** been agreed upon. Do not treat any numeric or format values in this section as final.
+Backend 2 produces controlled WAV samples and JSON metadata. Values below marked **IMPLEMENTED (simulator)** come from `backend/core/config.py` and `backend/services/payload_service.py` and were verified by round-trip tests and `samples/backend2/sample.json`. They describe the **digital signal** before speaker output—not measured over-the-air performance.
 
-### What the Contract Must Eventually Specify
+### Verified Simulator Parameters (IMPLEMENTED — software)
+
+| Item | Value | Status |
+|------|-------|--------|
+| Audio format | RIFF WAV, 16-bit signed PCM mono | **IMPLEMENTED (simulator)** |
+| Sample rate (Hz) | 48000 | **IMPLEMENTED (simulator)** |
+| Number of channels | 1 (mono) | **IMPLEMENTED (simulator)** |
+| Bit depth | 16-bit PCM | **IMPLEMENTED (simulator)** |
+| Modulation type | BFSK (binary FSK) | **IMPLEMENTED (simulator)** |
+| Bit 0 frequency (Hz) | 18500 | **IMPLEMENTED (simulator)** |
+| Bit 1 frequency (Hz) | 20500 | **IMPLEMENTED (simulator)** — changed from 21000; see Section 3 notes |
+| Symbol / bit duration | 0.05 s (50 ms) | **IMPLEMENTED (simulator)** |
+| Preamble | `10101010` (8 bits) | **IMPLEMENTED (simulator)** |
+| Encoding | UTF-8 text → 8-bit ASCII bits, MSB first per byte | **IMPLEMENTED (simulator)** |
+| Checksum | None | **IMPLEMENTED (simulator)** |
+| Reference sample | `samples/backend2/sample.wav` + `sample.json` | **IMPLEMENTED (simulator)** |
+| Reproduction | `python backend/scripts/generate_sample.py` | **IMPLEMENTED (simulator)** |
+| Documentation | `docs/backend2-simulator.md`, `samples/backend2/README.md` | **IMPLEMENTED (simulator)** |
+
+### Still Pending / To Be Measured
 
 | Item | Status |
 |------|--------|
-| Audio format (WAV, raw PCM, stream, etc.) | PENDING |
-| WAV / stream behavior | PENDING |
-| Sample rate (Hz) | **TO BE MEASURED** |
-| Number of channels (mono/stereo) | PENDING |
-| Bit depth (if relevant) | PENDING |
-| Duration / chunk size | PENDING |
-| Signal metadata (payload ID, experiment run, etc.) | PENDING |
-| Modulation type | PENDING |
-| Carrier / frequency information (where available) | **TO BE MEASURED** |
+| Over-the-air sample rate at microphone | **TO BE MEASURED** |
+| Duration / chunk size for live detector streams | **PENDING** (stream uses 1.0 s window / 0.5 s hop — not final Detector contract) |
 | Experiment conditions (distance, volume, environment) | **TO BE MEASURED** |
+| Detector intake API/format | **PENDING** |
 
 ### Notes
 
@@ -147,109 +160,169 @@ Backend 2 (Attack Simulator) is expected to produce audio and metadata for the D
 - **Backend 2** owns simulator-side implementation of this handoff (encoding, modulation, audio generation, metadata).
 - **Detector** owns detector-side implementation of this handoff (audio acquisition, intake format, reception behavior).
 - **Backend 1** owns and coordinates the shared integration contract in this document. Backend 2 and Detector must agree on technical details; Backend 1 facilitates updates to this document and cross-team alignment.
+- **VERIFIED (2026-08-15):** `FREQ_1` was adjusted from 21000 to 20500 Hz. The AI DSP detection band is 18000–21000 Hz (`ai/dsp/__init__.py`); pure tones at exactly 21000 Hz are not recovered by the FFT peak detector. FSK with carriers 18500/21000 Hz fails AI detection; 18500/20500 Hz passes (`tests/test_backend2_ai_integration.py`).
 
 ---
 
 ## 4. Detector -> AI Contract
 
-**Status: PENDING / TO BE DECIDED**
+**Status: PARTIAL — AI DSP input requirements VERIFIED; Detector acquisition format PENDING**
 
-The Detector will provide audio to the AI pipeline. Final values have **not** been agreed upon.
+The AI DSP module (`ai/dsp/`, branch `feature/ai-dsp`) defines verified audio input requirements. Detector acquisition format (microphone, chunking, file packaging) remains **PENDING**.
 
-### Responsibility Boundary (PENDING)
+### AI DSP Input Requirements (VERIFIED)
 
-| Area | Owner | Status |
+Source: `ai/docs/AI_DETECTION_SPEC.md`, `ai/dsp/INTEGRATION_GUIDE.md`, `ai/dsp/dsp_api.py`
+
+| Item | Value | Status |
 |------|-------|--------|
-| Microphone / audio acquisition | Detector | **PENDING / TO BE DECIDED** |
-| Basic acquisition-level preparation (recording, chunking, file/stream packaging) | Detector | **PENDING / TO BE DECIDED** |
-| DSP analysis, signal processing, feature extraction, classification | AI | **PENDING / TO BE DECIDED** |
-| Exact handoff boundary (what Detector delivers vs what AI computes) | Detector + AI (Backend 1 coordinates contract) | **PENDING / TO BE DECIDED** |
+| Sample rate | **48000 Hz** (raises `ValueError` if < 44100) | **VERIFIED** |
+| Channels | Mono (stereo averaged) | **VERIFIED** |
+| Format | float32/float64 in [-1.0, 1.0]; int16 PCM scaled on load | **VERIFIED** |
+| Recommended chunk size | 2048 samples (~42.7 ms at 48 kHz) | **VERIFIED** |
+| WAV file input | Supported via `scipy.io.wavfile` or `SignalGenerator.load_wav()` | **VERIFIED** |
+| Detection band | 18000–21000 Hz (tones at exactly 21000 Hz not recovered) | **VERIFIED** |
+| Filter band (AI preprocessing) | 17500–21500 Hz Butterworth bandpass, order 6 | **VERIFIED** |
 
-- **Detector** owns microphone/audio acquisition and basic acquisition-level preparation such as recording and chunking.
-- **AI** owns DSP analysis, signal processing, feature extraction, and classification unless the teams explicitly agree otherwise.
-- The exact boundary between Detector output and AI input is **PENDING** until the AI and Detector teams agree. Backend 1 coordinates and documents the agreed contract here.
+### AI Preprocessing (VERIFIED — performed by AI, not Backend 2)
 
-### What the Contract Must Eventually Specify
+Backend 2 provides **raw WAV**. The AI DSP pipeline performs:
+
+1. DC offset removal
+2. First-order pre-emphasis
+3. Stateful Butterworth bandpass 17.5–21.5 kHz
+
+Do **not** duplicate this preprocessing in Backend 2.
+
+### AI Inference Entry Point (VERIFIED)
+
+```python
+import sys
+sys.path.insert(0, "ai")
+from dsp import DSPPipeline
+
+pipeline = DSPPipeline()  # 48 kHz, 2048 FFT
+for chunk in audio_stream:  # shape (2048,), float, mono
+    pipeline.process(chunk)
+event = pipeline.to_threat_event()  # call at end of capture, not per chunk
+```
+
+File-based test (Backend 2 handoff):
+
+```bash
+python -m pytest tests/test_backend2_ai_integration.py -v
+```
+
+### Detector Responsibilities (PENDING)
 
 | Item | Status |
 |------|--------|
-| Input audio format | PENDING |
-| Sample rate | **TO BE MEASURED** |
-| Channels | PENDING |
-| Chunk duration | PENDING |
-| Preprocessing responsibilities (Detector vs AI) | PENDING |
-| Raw audio vs preprocessed audio | PENDING |
-| Handling of silence / noise | PENDING |
-| Error behavior (missing audio, corrupt chunk, etc.) | PENDING |
-| Real-time vs batch behavior | PENDING |
+| Microphone / audio acquisition | **PENDING** |
+| Live stream chunking to 2048 samples | **PENDING** |
+| Error behavior for dead microphone | **VERIFIED** in `ai/dsp/recording_quality.py` (not Detector code yet) |
+| Real-time vs batch | **PENDING** |
 
 ### Notes
 
-- Detector and AI teams must agree on the exact handoff boundary and who performs each step beyond basic acquisition-level preparation.
-- Backend 1 owns and coordinates the shared integration contract; Detector and AI own their respective implementations.
+- Backend 2 `sample.wav` at 48 kHz mono is directly loadable by the AI pipeline without format conversion.
+- Detector and AI teams must still agree on live-stream handoff; Backend 1 coordinates contract updates.
 
 ---
 
 ## 5. AI -> Backend Contract
 
-**Status: TEMPORARY — THIS IS NOT THE FINAL AI CONTRACT**
+**Status: IMPLEMENTED — Backend 1 `ThreatEvent` matches the 13-field DSP schema (`1.0.0-dsp`)**
 
-The Backend currently accepts a **prototype** `ThreatEvent` schema via `POST /api/analyze`. This schema exists to unblock Frontend and integration work. It will be replaced once the AI team delivers a validated **AI Detection Specification**.
+The AI DSP layer (`ai/dsp/dsp_api.py`) produces a threat event via `DSPPipeline.to_threat_event()`. Backend 1 accepts the same 13-field shape via `POST /api/analyze` with Pydantic validation (`backend/models/data_schemas.py`). Backend 1 does not transform or recalculate AI fields — receive → validate → store → serve.
 
-### Current Prototype Schema (TEMPORARY)
+### AI DSP Output Schema (VERIFIED)
+
+Source: `ai/docs/AI_DETECTION_SPEC.md`, pinned by `ai/tests/test_threat_event_contract.py`
 
 ```json
 {
+  "schema_version": "1.0.0-dsp",
   "detected": true,
-  "confidence": 0.94,
-  "risk": "HIGH",
-  "frequency": {
-    "min": 19800,
-    "max": 21200
-  },
-  "duration": 3.2,
-  "pattern": "FSK-like"
+  "confidence": 0.89,
+  "risk": "MEDIUM",
+  "suspicion_score": 0.6365,
+  "frequency_start": 18492.2,
+  "frequency_end": 20507.8,
+  "carrier_freqs": [18492.2, 20507.8],
+  "duration": 7.68,
+  "pattern": "fsk",
+  "snr": 55.17,
+  "chunks_analyzed": 201,
+  "timestamp": 1786794542.14
 }
 ```
 
-### Prototype Field Summary (TEMPORARY — not validated by AI team)
+### AI DSP Field Summary (VERIFIED)
 
-| Field | Type | Backend Validation | AI Validation |
-|-------|------|-------------------|---------------|
-| `detected` | `bool` | Required | **PENDING** |
-| `confidence` | `float` (0.0–1.0) | Required, `ge=0.0`, `le=1.0` | **PENDING** |
-| `risk` | `string` | Required (no enum enforced yet) | **PENDING** |
-| `frequency.min` | `float` (≥ 0) | Required | **PENDING** |
-| `frequency.max` | `float` (≥ 0) | Required | **PENDING** |
-| `duration` | `float` (≥ 0) | Required | **PENDING** |
-| `pattern` | `string` | Required | **PENDING** |
+| Field | Type | Meaning | Status |
+|-------|------|---------|--------|
+| `schema_version` | string | `"1.0.0-dsp"` | **VERIFIED** |
+| `detected` | bool | Accumulated threat verdict | **VERIFIED** |
+| `confidence` | float 0–1 | Modulation classifier certainty (uncalibrated) | **VERIFIED** |
+| `suspicion_score` | float 0–1 | Threat heuristic (distinct from `confidence`) | **VERIFIED** |
+| `risk` | string | `LOW` / `MEDIUM` / `HIGH` from suspicion thresholds | **VERIFIED** (DSP defaults) |
+| `frequency_start` | float or null | Min detected carrier Hz | **VERIFIED** |
+| `frequency_end` | float or null | Max detected carrier Hz | **VERIFIED** |
+| `carrier_freqs` | float[] | Discrete carriers (preserve for FSK) | **VERIFIED** |
+| `duration` | float | Segmentation-based seconds | **VERIFIED** |
+| `pattern` | string | `none`, `tone`, `fsk`, `ook`, `chirp` | **VERIFIED** (OOK ~70% on synthetic) |
+| `snr` | float | Peak SNR in dB | **VERIFIED** |
+| `chunks_analyzed` | int | Chunks processed | **VERIFIED** |
+| `timestamp` | float | Unix timestamp | **VERIFIED** |
 
-### What the AI Team Must Eventually Provide
+Risk bands (DSP defaults, not calibrated): `HIGH >= 0.75`, `MEDIUM >= 0.45`, else `LOW`.
 
-The AI team must deliver a validated **AI Detection Specification** document covering every output field:
+### Verified Backend 2 → AI Test Result (2026-08-15)
 
-1. **Meaning** — what the field represents
-2. **Data type** — bool, float, string, object, etc.
-3. **Range** — valid min/max or allowed enum values
-4. **Calculation** — how the value is derived from signal processing / model output
-5. **Mandatory vs optional** — whether Backend must reject requests missing this field
-6. **Experimental validation** — whether the field has been verified against real hardware experiments
+| Item | Value |
+|------|-------|
+| Input | `samples/backend2/sample.wav` |
+| AI method | `DSPPipeline.process()` + `to_threat_event()` |
+| `detected` | `true` (after `FREQ_1` adjusted to 20500 Hz) | **VERIFIED** |
+| `risk` | `MEDIUM` | **VERIFIED** |
+| `suspicion_score` | ~0.58 | **VERIFIED** |
+| `pattern` | `tone` (not `fsk` — see note) | **VERIFIED** |
+| `carrier_freqs` | `[18492.2]` (20500 Hz not consistently accumulated) | **VERIFIED** |
+| Test | `tests/test_backend2_ai_integration.py` | **VERIFIED** |
 
-Expected topics in the final specification (subject to AI team validation):
+**Note:** With 50 ms BFSK symbols and a real encoded payload, each 2048-sample AI frame (~42.7 ms) often contains one carrier, so `pattern` may be `tone` even though `detected` is `true`. AI `generate_attack_signal("fsk")` with random bits classifies as `fsk` with two carriers.
 
-- `detected`
-- `confidence`
-- `risk`
-- Frequency information *(if reliably measurable)*
-- Duration *(if reliably measurable)*
-- Pattern / modulation classification *(if reliably measurable)*
-- Any additional features useful to Frontend or Backend (e.g., timestamps, event IDs, SNR estimates)
+### Backend 1 `ThreatEvent` Schema (IMPLEMENTED)
+
+Backend 1 uses the same 13-field contract as the AI DSP output (see above). Source: `backend/models/data_schemas.py`, pinned by `tests/test_backend1_api.py`.
+
+`frequency_start`, `frequency_end`, and `carrier_freqs` are stored separately — Backend 1 does **not** collapse carriers into `frequency.min` / `frequency.max`.
+
+`confidence` (modulation certainty) and `suspicion_score` (threat heuristic) are distinct fields and are stored unchanged.
+
+### Integration wiring (IMPLEMENTED — HTTP client)
+
+| Item | Status |
+|------|--------|
+| HTTP client (`integration/backend_client.py`) → `POST /api/analyze` | **IMPLEMENTED** |
+| Config `BACKEND_API_URL` (default `http://127.0.0.1:8000`) | **IMPLEMENTED** (`integration/config.py`) |
+| CLI runner `python -m integration.run_dsp_to_backend` | **IMPLEMENTED** |
+| Detector audio stream → `DSPPipeline` → client → Backend | **PENDING** |
+
+### PENDING (AI 2 — not DSP layer)
+
+| Item | Status |
+|------|--------|
+| Learned classifier model | **PENDING** (AI 2 deliverable) |
+| Detection accuracy / FPR / FNR | **PENDING** |
+| Calibrated confidence and risk thresholds | **PENDING** |
+| Over-the-air performance | **TO BE MEASURED** |
 
 ### Rules
 
 - **Backend must not invent AI measurements.** Backend validates structure and stores values; it does not generate confidence, risk, or frequency data.
 - **AI owns inference logic.** Backend owns API validation and storage.
-- Changes to this schema require AI team sign-off and an update to this document before implementation changes.
+- Changes to the production schema require AI team sign-off and an update to this document before implementation changes.
 
 ---
 
@@ -283,7 +356,7 @@ All endpoints below are live in the current codebase. Base URL during local deve
 
 **Purpose:** Receive and validate a `ThreatEvent` from the AI pipeline (or integration test harness).
 
-**Status:** **IMPLEMENTED** — but `ThreatEvent` schema is **TEMPORARY** (see Section 5).
+**Status:** **IMPLEMENTED** — 13-field `ThreatEvent` schema (`1.0.0-dsp`, see Section 5).
 
 **Request body:** `ThreatEvent` (JSON)
 
@@ -312,10 +385,16 @@ In-memory history
 
 **Validation rules (current implementation):**
 
-- `confidence`: 0.0–1.0
-- `frequency.min`, `frequency.max`: ≥ 0
-- `duration`: ≥ 0
-- All fields required (no optional fields in current schema)
+- `schema_version`: string (expected `"1.0.0-dsp"`)
+- `confidence`, `suspicion_score`: 0.0–1.0
+- `risk`: `LOW` | `MEDIUM` | `HIGH`
+- `pattern`: `none` | `tone` | `fsk` | `ook` | `chirp`
+- `frequency_start`, `frequency_end`: nullable, ≥ 0 when provided
+- `carrier_freqs`: array of floats ≥ 0 (may be empty)
+- `duration`: ≥ 0 (event-level seconds)
+- `chunks_analyzed`: int ≥ 0
+- `timestamp`: Unix epoch float
+- All 13 fields required; `frequency_start` / `frequency_end` may be `null`
 
 ---
 
@@ -333,12 +412,19 @@ In-memory history
 {
   "threats": [
     {
+      "schema_version": "1.0.0-dsp",
       "detected": true,
       "confidence": 0.94,
       "risk": "HIGH",
-      "frequency": { "min": 19800, "max": 21200 },
+      "suspicion_score": 0.91,
+      "frequency_start": 19800.0,
+      "frequency_end": 21200.0,
+      "carrier_freqs": [19800.0, 21200.0],
       "duration": 3.2,
-      "pattern": "FSK-like"
+      "pattern": "fsk",
+      "snr": 18.5,
+      "chunks_analyzed": 75,
+      "timestamp": 1786621450.25
     }
   ]
 }
@@ -365,12 +451,19 @@ Empty history:
 ```json
 {
   "current": {
+    "schema_version": "1.0.0-dsp",
     "detected": true,
     "confidence": 0.94,
     "risk": "HIGH",
-    "frequency": { "min": 19800, "max": 21200 },
+    "suspicion_score": 0.91,
+    "frequency_start": 19800.0,
+    "frequency_end": 21200.0,
+    "carrier_freqs": [19800.0, 21200.0],
     "duration": 3.2,
-    "pattern": "FSK-like"
+    "pattern": "fsk",
+    "snr": 18.5,
+    "chunks_analyzed": 75,
+    "timestamp": 1786621450.25
   }
 }
 ```
@@ -472,9 +565,10 @@ The following values **must be experimentally measured** in controlled lab condi
 
 | Handoff | Owner | Receiver | Status |
 |---------|-------|----------|--------|
-| Simulator -> Detector | Backend 2 | Detector | **PENDING** |
-| Detector -> AI | Detector | AI | **PENDING** |
-| AI -> Backend | AI | Backend 1 | **TEMPORARY CONTRACT** |
+| Simulator -> Detector | Backend 2 | Detector | **PARTIAL** (WAV + JSON reference sample ready) |
+| Backend 2 -> AI (file) | Backend 2 | AI DSP | **VERIFIED** (`tests/test_backend2_ai_integration.py`) |
+| Detector -> AI (live) | Detector | AI | **PENDING** |
+| AI -> Backend | AI DSP | Backend 1 | **MISMATCH** (DSP schema verified; Backend 1 uses temp schema) |
 | Backend -> Frontend | Backend 1 | Frontend | **BASIC CONTRACT READY** |
 | Full E2E | Backend 1 (coordinates) | All teams | **PENDING** |
 

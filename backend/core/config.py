@@ -3,7 +3,7 @@ from backend.models.data_schemas import StreamConfig
 
 SAMPLE_RATE = 48000
 FREQ_0 = 18500
-FREQ_1 = 21000
+FREQ_1 = 20500  # was 21000; AI DSP band ends at 21000 Hz (exclusive at bin edge)
 BIT_DURATION = 0.05
 PREAMBLE = "10101010"
 

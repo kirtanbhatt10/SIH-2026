@@ -6,7 +6,12 @@ Verifies all threat management endpoints work correctly:
 - GET  /api/threats
 - GET  /api/threats/current
 - GET  /docs (Swagger)
+
+ThreatEvent contract: 13-field AI schema (1.0.0-dsp).
 """
+
+import os
+import sys
 
 import pytest
 from fastapi.testclient import TestClient
@@ -14,8 +19,41 @@ from fastapi.testclient import TestClient
 from backend.main import app
 from backend.services.threat_service import _threats
 
-
 client = TestClient(app)
+
+VALID_THREAT_EVENT = {
+    "schema_version": "1.0.0-dsp",
+    "detected": True,
+    "confidence": 0.94,
+    "risk": "HIGH",
+    "suspicion_score": 0.91,
+    "frequency_start": 19800.0,
+    "frequency_end": 21200.0,
+    "carrier_freqs": [19800.0, 21200.0],
+    "duration": 3.2,
+    "pattern": "fsk",
+    "snr": 18.5,
+    "chunks_analyzed": 75,
+    "timestamp": 1786621450.25,
+}
+
+NO_THREAT_EVENT = {
+    "schema_version": "1.0.0-dsp",
+    "detected": False,
+    "confidence": 0.0,
+    "risk": "LOW",
+    "suspicion_score": 0.0,
+    "frequency_start": None,
+    "frequency_end": None,
+    "carrier_freqs": [],
+    "duration": 0.0,
+    "pattern": "none",
+    "snr": 0.0,
+    "chunks_analyzed": 0,
+    "timestamp": 1786621450.25,
+}
+
+THREAT_EVENT_FIELDS = frozenset(VALID_THREAT_EVENT.keys())
 
 
 @pytest.fixture(autouse=True)
@@ -25,6 +63,9 @@ def clear_threats():
     yield
     _threats.clear()
 
+
+def _post(event: dict):
+    return client.post("/api/analyze", json=event)
 
 
 class TestSystemStatus:
@@ -40,56 +81,138 @@ class TestSystemStatus:
         assert "version" in data
 
 
-class TestAnalyze:
-    VALID_EVENT = {
-        "detected": True,
-        "confidence": 0.94,
-        "risk": "HIGH",
-        "frequency": {"min": 19800, "max": 21200},
-        "duration": 3.2,
-        "pattern": "FSK-like",
-    }
+class TestThreatEventValidation:
+    """Contract validation for POST /api/analyze (13-field ThreatEvent)."""
 
-    def test_analyze_accepts_valid_event(self):
-        response = client.post("/api/analyze", json=self.VALID_EVENT)
+    def test_valid_full_13_field_event(self):
+        response = _post(VALID_THREAT_EVENT)
         assert response.status_code == 200
-        data = response.json()
-        assert data["status"] == "received"
-        assert data["event"]["detected"] is True
-        assert data["event"]["confidence"] == 0.94
+        assert response.json()["status"] == "received"
 
-    def test_analyze_rejects_missing_fields(self):
-        response = client.post("/api/analyze", json={"detected": True})
-        assert response.status_code == 422  # Pydantic validation error
+    def test_valid_no_threat_event(self):
+        response = _post(NO_THREAT_EVENT)
+        assert response.status_code == 200
+        assert response.json()["event"]["detected"] is False
+        assert response.json()["event"]["carrier_freqs"] == []
 
-    def test_analyze_rejects_invalid_confidence(self):
-        bad_event = {**self.VALID_EVENT, "confidence": 1.5}
-        response = client.post("/api/analyze", json=bad_event)
-        assert response.status_code == 422
+    def test_confidence_zero(self):
+        event = {**VALID_THREAT_EVENT, "confidence": 0.0}
+        assert _post(event).status_code == 200
 
-    def test_analyze_rejects_negative_duration(self):
-        bad_event = {**self.VALID_EVENT, "duration": -1.0}
-        response = client.post("/api/analyze", json=bad_event)
-        assert response.status_code == 422
+    def test_confidence_one(self):
+        event = {**VALID_THREAT_EVENT, "confidence": 1.0}
+        assert _post(event).status_code == 200
 
-    def test_analyze_stores_event(self):
-        client.post("/api/analyze", json=self.VALID_EVENT)
-        response = client.get("/api/threats")
-        threats = response.json()["threats"]
-        assert len(threats) == 1
-        assert threats[0]["pattern"] == "FSK-like"
+    def test_suspicion_score_zero(self):
+        event = {**VALID_THREAT_EVENT, "suspicion_score": 0.0}
+        assert _post(event).status_code == 200
+
+    def test_suspicion_score_one(self):
+        event = {**VALID_THREAT_EVENT, "suspicion_score": 1.0}
+        assert _post(event).status_code == 200
+
+    def test_null_frequency_start(self):
+        event = {**VALID_THREAT_EVENT, "frequency_start": None}
+        assert _post(event).status_code == 200
+
+    def test_null_frequency_end(self):
+        event = {**VALID_THREAT_EVENT, "frequency_end": None}
+        assert _post(event).status_code == 200
+
+    def test_empty_carrier_freqs(self):
+        event = {**NO_THREAT_EVENT, "detected": True, "pattern": "tone"}
+        assert _post(event).status_code == 200
+
+    def test_multiple_carrier_frequencies(self):
+        event = {**VALID_THREAT_EVENT, "carrier_freqs": [18500.0, 19000.0, 20500.0]}
+        response = _post(event)
+        assert response.status_code == 200
+        assert response.json()["event"]["carrier_freqs"] == [18500.0, 19000.0, 20500.0]
+
+    def test_invalid_confidence(self):
+        event = {**VALID_THREAT_EVENT, "confidence": 1.5}
+        assert _post(event).status_code == 422
+
+    def test_invalid_suspicion_score(self):
+        event = {**VALID_THREAT_EVENT, "suspicion_score": -0.1}
+        assert _post(event).status_code == 422
+
+    def test_invalid_risk(self):
+        event = {**VALID_THREAT_EVENT, "risk": "CRITICAL"}
+        assert _post(event).status_code == 422
+
+    def test_invalid_pattern(self):
+        event = {**VALID_THREAT_EVENT, "pattern": "FSK-like"}
+        assert _post(event).status_code == 422
+
+    def test_negative_duration(self):
+        event = {**VALID_THREAT_EVENT, "duration": -1.0}
+        assert _post(event).status_code == 422
+
+    def test_negative_chunks_analyzed(self):
+        event = {**VALID_THREAT_EVENT, "chunks_analyzed": -1}
+        assert _post(event).status_code == 422
+
+    def test_negative_frequency_start(self):
+        event = {**VALID_THREAT_EVENT, "frequency_start": -100.0}
+        assert _post(event).status_code == 422
+
+    def test_negative_frequency_end(self):
+        event = {**VALID_THREAT_EVENT, "frequency_end": -50.0}
+        assert _post(event).status_code == 422
+
+    def test_negative_carrier_freq(self):
+        event = {**VALID_THREAT_EVENT, "carrier_freqs": [19000.0, -1.0]}
+        assert _post(event).status_code == 422
+
+    def test_missing_required_fields(self):
+        assert _post({"detected": True}).status_code == 422
+
+
+class TestThreatEventStorage:
+    def test_stores_values_without_recalculation(self):
+        _post(VALID_THREAT_EVENT)
+        stored = client.get("/api/threats/current").json()["current"]
+        assert stored == VALID_THREAT_EVENT
+        assert stored["confidence"] == 0.94
+        assert stored["suspicion_score"] == 0.91
+        assert stored["confidence"] != stored["suspicion_score"]
+
+    def test_current_returns_all_13_fields_unchanged(self):
+        _post(VALID_THREAT_EVENT)
+        current = client.get("/api/threats/current").json()["current"]
+        assert frozenset(current.keys()) == THREAT_EVENT_FIELDS
+        for key, value in VALID_THREAT_EVENT.items():
+            assert current[key] == value
+
+    def test_analyze_accepts_ai_generated_payload(self):
+        repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        ai_root = os.path.join(repo_root, "ai")
+        if ai_root not in sys.path:
+            sys.path.insert(0, ai_root)
+
+        from dsp import DSPPipeline  # noqa: E402
+
+        pipeline = DSPPipeline()
+        audio = pipeline.generate_attack_signal("fsk", duration_sec=2.0)
+        chunk = 2048
+        for i in range(0, len(audio) - chunk, chunk):
+            pipeline.process(audio[i : i + chunk])
+        ai_event = pipeline.to_threat_event()
+
+        response = _post(ai_event)
+        assert response.status_code == 200, response.json()
+        assert response.json()["event"]["schema_version"] == "1.0.0-dsp"
+        assert frozenset(response.json()["event"].keys()) == THREAT_EVENT_FIELDS
+
+        current = client.get("/api/threats/current").json()["current"]
+        assert current["detected"] == ai_event["detected"]
+        assert current["confidence"] == ai_event["confidence"]
+        assert current["suspicion_score"] == ai_event["suspicion_score"]
+        assert current["carrier_freqs"] == ai_event["carrier_freqs"]
 
 
 class TestThreats:
-    VALID_EVENT = {
-        "detected": True,
-        "confidence": 0.8,
-        "risk": "MEDIUM",
-        "frequency": {"min": 18000, "max": 20000},
-        "duration": 2.0,
-        "pattern": "tone-burst",
-    }
-
     def test_threats_empty_initially(self):
         response = client.get("/api/threats")
         assert response.status_code == 200
@@ -103,30 +226,27 @@ class TestThreats:
         assert "message" in data
 
     def test_threats_returns_stored_events(self):
-        client.post("/api/analyze", json=self.VALID_EVENT)
-        response = client.get("/api/threats")
-        threats = response.json()["threats"]
+        _post(VALID_THREAT_EVENT)
+        threats = client.get("/api/threats").json()["threats"]
         assert len(threats) == 1
-        assert threats[0]["risk"] == "MEDIUM"
+        assert threats[0]["risk"] == "HIGH"
 
     def test_threats_current_returns_latest(self):
-        # Post two events
-        client.post("/api/analyze", json=self.VALID_EVENT)
-        second_event = {**self.VALID_EVENT, "risk": "CRITICAL", "confidence": 0.99}
-        client.post("/api/analyze", json=second_event)
+        _post(VALID_THREAT_EVENT)
+        second = {**VALID_THREAT_EVENT, "risk": "MEDIUM", "confidence": 0.5, "suspicion_score": 0.55}
+        _post(second)
 
-        response = client.get("/api/threats/current")
-        current = response.json()["current"]
-        assert current["risk"] == "CRITICAL"
-        assert current["confidence"] == 0.99
+        current = client.get("/api/threats/current").json()["current"]
+        assert current["risk"] == "MEDIUM"
+        assert current["confidence"] == 0.5
+        assert current["suspicion_score"] == 0.55
 
     def test_threats_preserves_order(self):
         for i in range(3):
-            event = {**self.VALID_EVENT, "confidence": round((i + 1) * 0.1, 2)}
-            client.post("/api/analyze", json=event)
+            event = {**VALID_THREAT_EVENT, "confidence": round((i + 1) * 0.1, 2)}
+            _post(event)
 
-        response = client.get("/api/threats")
-        threats = response.json()["threats"]
+        threats = client.get("/api/threats").json()["threats"]
         assert len(threats) == 3
         assert threats[0]["confidence"] == pytest.approx(0.1)
         assert threats[2]["confidence"] == pytest.approx(0.3)

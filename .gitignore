@@ -29,8 +29,12 @@ Thumbs.db
 *.flac
 *.npy
 *.npz
+!samples/backend2/*.wav
 generated_payloads/
 forensic_captures/
+
+# Unrelated reference material (not part of SIH application)
+Reverse_Shell-main/
 
 # Temporary files
 *.tmp

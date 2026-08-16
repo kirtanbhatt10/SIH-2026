@@ -1,7 +1,7 @@
 import time
-from typing import Optional
+from typing import Literal, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class AudioChunkMessage(BaseModel):
@@ -24,7 +24,7 @@ class StreamConfig(BaseModel):
 class GeneratePayloadRequest(BaseModel):
     text: str = Field(..., max_length=256, description="Payload text to encode")
     freq_0_hz: int = 18500
-    freq_1_hz: int = 21000
+    freq_1_hz: int = 20500
     bit_duration_ms: float = 50.0
 
 
@@ -71,7 +71,7 @@ class AcousticExfiltrateRequest(BaseModel):
     source_type: str = Field("custom", description="'custom' | 'keylog' | 'sysinfo'")
     custom_text: Optional[str] = Field(None, description="Text to exfiltrate if source_type is 'custom'")
     freq_0_hz: int = Field(18500, description="Frequency representing bit 0 (Hz)")
-    freq_1_hz: int = Field(21000, description="Frequency representing bit 1 (Hz)")
+    freq_1_hz: int = Field(20500, description="Frequency representing bit 1 (Hz)")
     bit_duration_ms: float = Field(50.0, description="Duration per bit in milliseconds")
     emit_audio: bool = Field(True, description="Whether to play tone through PC speaker")
 
@@ -87,11 +87,14 @@ class AcousticExfiltrateResponse(BaseModel):
 
 
 class ReverseShellCommandRequest(BaseModel):
+    """Legacy stub — not used by Backend 2 simulator API. See isolated/README.md."""
+
     target_id: Optional[str] = None
     command: str = Field(..., description="Reverse shell command or acoustic trigger")
 
 
 class ReverseShellStatus(BaseModel):
+    """Legacy stub — not used by Backend 2 simulator API. See isolated/README.md."""
     connected: bool
     target_ip: Optional[str] = None
     last_seen: Optional[float] = None
@@ -100,19 +103,37 @@ class ReverseShellStatus(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Backend 1 — Threat Management Models (TEMPORARY contract, see integration-contract.md)
+# Backend 1 — Threat Management Models (AI contract schema 1.0.0-dsp)
 # ---------------------------------------------------------------------------
 
-
-class FrequencyRange(BaseModel):
-    min: float = Field(..., ge=0)
-    max: float = Field(..., ge=0)
+RiskLevel = Literal["LOW", "MEDIUM", "HIGH"]
+PatternType = Literal["none", "tone", "fsk", "ook", "chirp"]
 
 
 class ThreatEvent(BaseModel):
+    """AI → Backend detection event. Backend validates and stores; no inference."""
+
+    schema_version: str = Field(..., description='Expected current value: "1.0.0-dsp"')
     detected: bool
-    confidence: float = Field(..., ge=0.0, le=1.0)
-    risk: str
-    frequency: FrequencyRange
-    duration: float = Field(..., ge=0)
-    pattern: str
+    confidence: float = Field(..., ge=0.0, le=1.0, description="Modulation-classifier certainty")
+    risk: RiskLevel
+    suspicion_score: float = Field(..., ge=0.0, le=1.0, description="Threat-likeness heuristic")
+    frequency_start: Optional[float] = Field(None, ge=0, description="Hz; null when no carrier band")
+    frequency_end: Optional[float] = Field(None, ge=0, description="Hz; null when no carrier band")
+    carrier_freqs: list[float] = Field(
+        default_factory=list,
+        description="Discrete detected carriers (preserves FSK structure)",
+    )
+    duration: float = Field(..., ge=0, description="Event-level duration in seconds")
+    pattern: PatternType
+    snr: float = Field(..., description="Peak SNR in dB")
+    chunks_analyzed: int = Field(..., ge=0)
+    timestamp: float = Field(..., description="Unix epoch seconds")
+
+    @field_validator("carrier_freqs")
+    @classmethod
+    def carrier_freqs_non_negative(cls, values: list[float]) -> list[float]:
+        for freq in values:
+            if freq < 0:
+                raise ValueError("carrier_freqs values must be >= 0")
+        return values
