@@ -170,3 +170,26 @@ def test_two_confidences_are_distinct_fields():
     assert "suspicion_score" in event
     assert 0.0 <= event["confidence"] <= 1.0
     assert 0.0 <= event["suspicion_score"] <= 1.0
+
+
+# ── Band-edge regression (reported by Backend team, 18 Aug) ──────────────
+
+@pytest.mark.parametrize("freq", [18000, 18500, 19000, 19500, 20000, 20500, 21000])
+def test_detects_tone_across_entire_band_including_edges(freq):
+    """
+    Backend reported "cannot detect ultrasonic". Root cause: scipy.find_peaks
+    requires a strictly lower neighbour on both sides, so it could never return
+    index 0 or the last index. A carrier exactly on a band edge was invisible:
+    an 18000 Hz tone gave num_peaks=0, modulation="none", while 18.5-20.5 kHz
+    worked. Fixed by zero-padding one bin either side before peak finding.
+    """
+    p = DSPPipeline()
+    t = np.arange(SR * 2) / SR
+    sig = 0.3 * np.sin(2 * np.pi * freq * t)
+    for i in range(0, len(sig) - CHUNK, CHUNK):
+        p.process(sig[i:i + CHUNK])
+
+    event = p.to_threat_event()
+    assert event["detected"], f"{freq} Hz not detected"
+    assert event["carrier_freqs"], f"{freq} Hz produced no carriers"
+    assert min(abs(c - freq) for c in event["carrier_freqs"]) < 50

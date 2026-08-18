@@ -257,12 +257,25 @@ class FrequencyAnalyzer:
         if max_val < 1e-8 or (max_val / (mean_val + 1e-12)) < 3.5:
             return []
 
+        # Pad one bin at each end before peak finding.
+        #
+        # scipy.find_peaks requires a strictly lower neighbour on BOTH sides,
+        # so it can never report index 0 or index -1. A carrier sitting exactly
+        # on a band edge (18000 Hz -> bin 0, 21000 Hz -> last bin) was therefore
+        # invisible: measured, an 18 kHz tone returned num_peaks=0 and
+        # modulation="none" while 18.5-20.5 kHz detected correctly.
+        #
+        # Backend 2 transmitting on a round number at the band edge would have
+        # seen "cannot detect ultrasonic" for a signal that was plainly present.
+        padded = np.concatenate(([0.0], us_mag, [0.0]))
+
         indices, properties = find_peaks(
-            us_mag,
+            padded,
             height=max_val * 0.15,
             prominence=max_val * 0.08,
             distance=3,
         )
+        indices = indices - 1          # undo the pad offset
 
         peaks = []
         prominences = properties.get("prominences", np.zeros(len(indices)))

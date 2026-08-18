@@ -49,9 +49,11 @@ Then:
 
 import argparse
 import csv
+import glob
 import hashlib
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -277,9 +279,34 @@ def main():
     ap.add_argument("--dry-run", action="store_true", help="analyse but write nothing")
     args = ap.parse_args()
 
-    wanted = CURATED if args.curated else list(KNOWN_RECORDINGS)
+    # Auto-discover any rx_<freq>.wav / baseline_*.wav in the input dir, so a
+    # sweep at frequencies not listed in KNOWN_RECORDINGS is still analysed.
+    # Previously an unlisted file (e.g. rx_20000.wav) was silently ignored.
+    discovered = {}
+    for path in sorted(glob.glob(os.path.join(args.input_dir, "*.wav"))):
+        fname = os.path.basename(path)
+        if fname in KNOWN_RECORDINGS:
+            continue
+        low = fname.lower()
+        if any(k in low for k in ("baseline", "silence", "quiet", "noise")):
+            discovered[fname] = (None, "sweep", "Silent baseline")
+        else:
+            m = re.search(r"(\d{3,5})", fname)
+            if m and 100 <= int(m.group(1)) <= 24000:
+                hz = int(m.group(1))
+                discovered[fname] = (hz, "sweep", f"{hz} Hz tone through speaker->air->mic")
 
-    found = [(f, *KNOWN_RECORDINGS[f])
+    catalogue = {**KNOWN_RECORDINGS, **discovered}
+    if discovered:
+        print(f"  auto-discovered: {', '.join(sorted(discovered))}")
+
+    if args.curated:
+        # Curated = the named decisive set, plus anything discovered.
+        wanted = [f for f in CURATED if f in catalogue] + sorted(discovered)
+    else:
+        wanted = list(catalogue)
+
+    found = [(f, *catalogue[f])
              for f in wanted
              if os.path.exists(os.path.join(args.input_dir, f))]
     missing = [f for f in wanted

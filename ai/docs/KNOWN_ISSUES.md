@@ -5,40 +5,76 @@ on something we have not actually verified.
 
 ---
 
-## 1. OOK classification is only ~70% reliable
+## 1. OOK classification — improved, still imperfect
 
-**Severity:** Medium — affects a headline claim
-**Found:** 15 Aug 2026, while investigating a flaky test
+**Severity:** Low-Medium
+**Updated:** 15 Aug 2026 — `transitions >= 2` relaxed to `>= 1`
 
-`FrequencyAnalyzer` classifies a synthetic 50-baud OOK signal at 19 kHz
-correctly in **28 of 40 runs**. Measured over 40 unseeded trials:
+A single analysis window covers only a few bit periods, so many genuine OOK
+windows contain exactly one ON/OFF transition and were being discarded as
+`tone` or `none`.
 
-| Signal | Result |
+**Window size matters.** The pipeline analyses **8192 samples**
+(`test_dsp_pipeline` passes 8192), not a single 2048 frame. Measuring on one
+frame understates performance badly:
+
+| Window | `transitions >= 2` (old) | `transitions >= 1` (new) |
+|---|---|---|
+| **8192 (pipeline)** | 27/40 — 68% | **30/40 — 75%** |
+| 2048 (single frame) | 15/40 — 38% | 20/40 — 50% |
+
+*40 unseeded trials, clean 50-baud OOK @ 19 kHz.*
+
+**No false-positive cost**, verified after the change:
+
+| Check | Result |
 |---|---|
-| 19 kHz steady tone | `tone` **40/40** |
-| OOK 50 baud @ 19 kHz | **`ook` 28/40**, `fsk` 9/40, `none` 3/40 |
-| FSK single chunk | `tone` 40/40 (correctly never `ook`) |
+| Ambient noise, per-frame | 100/100 `none` |
+| Ambient noise, final verdict | 0/30 false threats |
+| Speech-like signal, final verdict | 0/20 false threats |
+| Steady tone | 40/40 still `tone` — no regression |
 
-The variation comes from `generate_ook()` using random bits: some bit patterns
-put too few on/off transitions inside the analysis window, and the classifier
-falls back to `fsk` or `none`.
+Remaining ~25% are windows where the carrier occupies too little of the window
+to form a strong FFT peak (duty far from 0.5). Fixing those needs multi-frame
+transition counting — **follow-up, not done.**
 
-**Why it matters:** `INTEGRATION_GUIDE.md` advertises *"4 modulation schemes
-detected: FSK, OOK, Chirp, steady tone"* without qualification. On this
-evidence OOK detection is roughly a 70% proposition on *synthetic, noise-free*
-input. Real over-the-air audio will be worse.
+**Attempted fix, 18 Aug — did not work, recorded so nobody repeats it.**
 
-**Do not** present modulation classification accuracy in the PPT until it is
-measured properly across many trials and SNRs — that measurement is AI 2's
-evaluation deliverable.
+The Phase 2/3 plan suggested two changes: a longer analysis window, and
+rejecting OOK sidebands that masquerade as FSK. Both were measured.
 
-**Mitigation in place:** `tests/test_dsp_pipeline.py::test_6_regression_modulation_classification`
-is now seeded (`np.random.seed(42)`) so CI is deterministic. **The seed hides
-the flakiness; it does not fix it.** This entry exists so the gap is not lost.
+*Longer window* — helps, but plateaus well below target:
 
-**Likely fix:** require a minimum number of on/off transitions in the window
-before committing to `ook`, and/or analyse a longer segment for OOK than the
-single 2048-sample frame.
+| Window | OOK correct |
+|---|---|
+| 2048 (42.7 ms) | 22/40 |
+| 4096 | 28/40 |
+| **8192 (170 ms)** | **33/40 — best** |
+| 16384 | 26/40 |
+| 24000 | 30/40 |
+
+Longer is not monotonically better: past ~170 ms the window spans so many
+symbols that the envelope averages out and the keying signature weakens.
+
+*Sideband rejection* — the diagnosis was right, the fix was not. OOK at
+50 baud produces sidebands at carrier ± n·baud, and 4/40 misreads were `fsk`
+with an identical 586 Hz separation, confirming they were keying artefacts
+rather than two carriers. But adding an envelope-plus-symmetry check to
+reclassify them made things **worse**: OOK fell from 33/40 to 23/40, because
+genuinely-keyed OOK frames that were already correct got rerouted through the
+new branch and rejected as `none` (12/40).
+
+Reverted. Reaching >90% needs a proper cepstral or autocorrelation-based
+keying detector, not another threshold on the existing peak logic. That is a
+larger piece of work than the remaining schedule allows.
+
+**For the PPT:** OOK detection is ~75% on clean synthetic input. Do not quote a
+single accuracy figure for "modulation detection" across all four schemes —
+tone and FSK are far more reliable than OOK. Real over-the-air performance is
+unmeasured.
+
+Determinism: `tests/test_dsp_pipeline.py::test_6...` is seeded so CI is stable.
+The seed hides run-to-run variance; it does not remove it.
 
 ---
 
