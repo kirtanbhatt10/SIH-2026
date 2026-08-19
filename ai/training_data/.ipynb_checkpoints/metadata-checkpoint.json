@@ -1,0 +1,17 @@
+{
+  "source": "dsp_synthetic",
+  "source_note": "Synthetic AUDIO through the real dsp.FeatureExtractor. Valid as a detector baseline. NOT over-the-air performance.",
+  "n_samples": 2500,
+  "n_features": 32,
+  "n_classes": 5,
+  "samples_per_class": 500,
+  "seed": 42,
+  "label_map": {
+    "0": "benign",
+    "1": "fsk",
+    "2": "ook",
+    "3": "chirp",
+    "4": "tone"
+  },
+  "generator": "ai.ml.data_generation"
+}

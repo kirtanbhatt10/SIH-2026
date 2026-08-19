@@ -1,0 +1,48 @@
+{
+  "sample_file": "sample.wav",
+  "payload_text": "SIH 2026 BACKEND 2",
+  "payload_description": "controlled Backend 2 reference test payload",
+  "encoding": {
+    "format": "UTF-8 text to 8-bit ASCII bits (MSB first per byte)",
+    "preamble_bits": "10101010",
+    "preamble_description": "8-bit alternating pattern for sync",
+    "checksum": "not_applicable",
+    "encoded_bit_count": 152,
+    "encoded_bits_preview": "10101010010100110100100101001000..."
+  },
+  "modulation": "BFSK",
+  "carrier_frequency_0_hz": 18500,
+  "carrier_frequency_1_hz": 20500,
+  "bit_0_frequency_hz": 18500,
+  "bit_1_frequency_hz": 20500,
+  "symbol_duration_seconds": 0.05,
+  "bit_duration_ms": 50.0,
+  "amplitude_tone_peak": 0.5,
+  "amplitude_envelope": "10% linear ramp per symbol",
+  "pad_silence_seconds": 0.5,
+  "sample_rate": 48000,
+  "channels": 1,
+  "sample_width_bytes": 2,
+  "duration_seconds": 8.6,
+  "sample_count": 412800,
+  "peak_amplitude": 0.499969,
+  "rms_amplitude": 0.309415,
+  "audio_quality": {
+    "has_nan": false,
+    "has_inf": false,
+    "clipped_at_full_scale": false,
+    "non_zero_signal": true
+  },
+  "reproduction_command": "python backend/scripts/generate_sample.py",
+  "decoder_self_test": {
+    "original_payload": "SIH 2026 BACKEND 2",
+    "decoded_payload": "SIH 2026 BACKEND 2",
+    "success": true,
+    "confidence": 0.947368,
+    "preamble_found": true,
+    "bit_count": 152,
+    "payload_match": true
+  },
+  "hardware_validation": "not_applicable",
+  "notes": "Frequencies and timing are software simulator parameters. Speaker/microphone hardware behavior is TO BE MEASURED separately."
+}
