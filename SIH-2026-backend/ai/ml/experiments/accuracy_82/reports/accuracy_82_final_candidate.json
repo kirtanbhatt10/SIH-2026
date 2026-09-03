@@ -1,0 +1,280 @@
+{
+  "candidate": {
+    "experiment_id": "accuracy_82_data_diversity_v1",
+    "selected_experiment": "C_secondary_model",
+    "model_name": "hist_gradient_boosting",
+    "feature_set": "base_32_plus_engineered",
+    "feature_count": 40,
+    "best_params": {
+      "max_depth": 4,
+      "learning_rate": 0.12,
+      "max_leaf_nodes": 63
+    },
+    "calibration": "uncalibrated",
+    "dataset": "C:\\Users\\kirtan ishankumar\\Desktop\\ai\\ml\\training_data_v2_experiment",
+    "dataset_version": "dataset_v2_experiment.0",
+    "generator_version": "dataset_v2_generator-1.2-experiment-diversity",
+    "selection_partition": "cal_dev",
+    "selection_ranking": "accuracy, macro_f1, -benign_fpr, threat_recall",
+    "cal_dev_metrics": {
+      "experiment": "C_secondary_model",
+      "model_name": "hist_gradient_boosting",
+      "feature_set": "base_32_plus_engineered",
+      "n_features": 40,
+      "best_params": {
+        "max_depth": 4,
+        "learning_rate": 0.12,
+        "max_leaf_nodes": 63
+      },
+      "accuracy": 0.8046647230320699,
+      "macro_f1": 0.7723010793829757,
+      "weighted_f1": 0.8084654762760609,
+      "benign_precision": 0.8902439024390244,
+      "benign_recall": 0.8588235294117647,
+      "benign_false_positive_rate": 0.1411764705882353,
+      "threat_precision": 0.7411140583554376,
+      "threat_recall": 0.7583521162760977,
+      "latency_ms_per_sample": 0.018628377063178724,
+      "candidate_key": "C|hist_gradient_boosting|base_40"
+    },
+    "qualifies_for_targets_on_cal_dev": false,
+    "qualification_notes": [
+      "accuracy=0.8047 failed target >=0.8200",
+      "macro_f1=0.7723 failed target >=0.8200",
+      "benign_fpr=0.1412 failed target <=0.1000",
+      "threat_recall=0.7584 failed target >=0.8000"
+    ],
+    "experiments_run": {
+      "A_same_model": true,
+      "B_feature_extension": true,
+      "C_secondary_models": true
+    },
+    "frozen_baseline_reference": {
+      "model": "linear_svm_balanced",
+      "calibration": "uncalibrated",
+      "dataset_version": "dataset_v2_clean.0",
+      "locked_test": {
+        "accuracy": 0.7948,
+        "macro_f1": 0.8246,
+        "weighted_f1": 0.7973,
+        "benign_precision": 0.875,
+        "benign_recall": 0.9032,
+        "benign_fpr": 0.0968,
+        "threat_precision": 0.8277,
+        "threat_recall": 0.8046,
+        "latency_ms_per_sample": 0.0285
+      }
+    }
+  },
+  "locked_test_metrics": {
+    "model_name": "hist_gradient_boosting",
+    "accuracy": 0.7411545623836127,
+    "macro_f1": 0.7277708236187787,
+    "weighted_f1": 0.7432208495903053,
+    "per_class": {
+      "benign": {
+        "precision": 0.8135593220338984,
+        "recall": 0.8421052631578947,
+        "f1": 0.8275862068965517,
+        "support": 114
+      },
+      "fsk": {
+        "precision": 0.45263157894736844,
+        "recall": 0.6231884057971014,
+        "f1": 0.524390243902439,
+        "support": 69
+      },
+      "ook": {
+        "precision": 0.7669902912621359,
+        "recall": 0.6583333333333333,
+        "f1": 0.7085201793721974,
+        "support": 120
+      },
+      "chirp": {
+        "precision": 0.9655172413793104,
+        "recall": 0.9824561403508771,
+        "f1": 0.9739130434782609,
+        "support": 114
+      },
+      "tone": {
+        "precision": 0.6476190476190476,
+        "recall": 0.5666666666666667,
+        "f1": 0.6044444444444445,
+        "support": 120
+      }
+    },
+    "benign_recall": 0.8421052631578947,
+    "threat_recall": 0.7076611365369947,
+    "threat_recall_definition": "Macro-average recall over threat classes (fsk, ook, chirp, tone).",
+    "benign_false_positive_rate": 0.15789473684210525,
+    "benign_false_positive_rate_definition": "Fraction of benign test samples predicted as any threat class.",
+    "n_benign": 114,
+    "n_benign_as_threat": 18,
+    "confusion_matrix": [
+      [
+        96,
+        0,
+        18,
+        0,
+        0
+      ],
+      [
+        1,
+        43,
+        1,
+        4,
+        20
+      ],
+      [
+        19,
+        5,
+        79,
+        0,
+        17
+      ],
+      [
+        2,
+        0,
+        0,
+        112,
+        0
+      ],
+      [
+        0,
+        47,
+        5,
+        0,
+        68
+      ]
+    ],
+    "confusion_matrix_labels": [
+      "benign",
+      "fsk",
+      "ook",
+      "chirp",
+      "tone"
+    ],
+    "predicted_classes_order": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "probability_shape": [
+      537,
+      5
+    ],
+    "classification_report": "              precision    recall  f1-score   support\n\n      benign       0.81      0.84      0.83       114\n         fsk       0.45      0.62      0.52        69\n         ook       0.77      0.66      0.71       120\n       chirp       0.97      0.98      0.97       114\n        tone       0.65      0.57      0.60       120\n\n    accuracy                           0.74       537\n   macro avg       0.73      0.73      0.73       537\nweighted avg       0.75      0.74      0.74       537\n",
+    "latency_ms_mean": 0.012636995654540024,
+    "latency_ms_std": 0.0005959165942897241,
+    "partition": "locked_test_one_shot",
+    "benign_precision": 0.8135593220338984,
+    "threat_precision": 0.7081895398019655,
+    "latency_ms_per_sample": 0.012636995654540024
+  },
+  "qualifies_on_locked_test": false,
+  "qualification_notes": [
+    "accuracy=0.7412 failed target >=0.8200",
+    "macro_f1=0.7278 failed target >=0.8200",
+    "benign_fpr=0.1579 failed target <=0.1000",
+    "threat_recall=0.7077 failed target >=0.8000"
+  ],
+  "baseline_locked_test_clean_dataset": {
+    "accuracy": 0.7948,
+    "macro_f1": 0.8246,
+    "weighted_f1": 0.7973,
+    "benign_precision": 0.875,
+    "benign_recall": 0.9032,
+    "benign_fpr": 0.0968,
+    "threat_precision": 0.8277,
+    "threat_recall": 0.8046,
+    "latency_ms_per_sample": 0.0285
+  },
+  "comparison_note": "Baseline metrics are from frozen clean locked_test (463 samples). Candidate metrics are from experiment dataset locked_test partition using the same split policy but different generated samples.",
+  "comparison_table": {
+    "accuracy": {
+      "baseline": 0.7948,
+      "candidate": 0.7411545623836127,
+      "delta_pp": -5.364543761638729
+    },
+    "macro_f1": {
+      "baseline": 0.8246,
+      "candidate": 0.7277708236187787,
+      "delta_pp": -9.682917638122134
+    },
+    "weighted_f1": {
+      "baseline": 0.7973,
+      "candidate": 0.7432208495903053,
+      "delta_pp": -5.407915040969469
+    },
+    "benign_precision": {
+      "baseline": 0.875,
+      "candidate": 0.8135593220338984,
+      "delta_pp": -6.144067796610164
+    },
+    "benign_recall": {
+      "baseline": 0.9032,
+      "candidate": 0.8421052631578947,
+      "delta_pp": -6.109473684210531
+    },
+    "benign_fpr": {
+      "baseline": 0.0968,
+      "candidate": 0.15789473684210525,
+      "delta_pp": 6.109473684210526
+    },
+    "threat_precision": {
+      "baseline": 0.8277,
+      "candidate": 0.7081895398019655,
+      "delta_pp": -11.951046019803446
+    },
+    "threat_recall": {
+      "baseline": 0.8046,
+      "candidate": 0.7076611365369947,
+      "delta_pp": -9.693886346300529
+    },
+    "latency_ms_per_sample": {
+      "baseline": 0.0285,
+      "candidate": 0.012636995654540024,
+      "delta_pp": -1.5863004345459977
+    }
+  },
+  "confusion_matrix": [
+    [
+      96,
+      0,
+      18,
+      0,
+      0
+    ],
+    [
+      1,
+      43,
+      1,
+      4,
+      20
+    ],
+    [
+      19,
+      5,
+      79,
+      0,
+      17
+    ],
+    [
+      2,
+      0,
+      0,
+      112,
+      0
+    ],
+    [
+      0,
+      47,
+      5,
+      0,
+      68
+    ]
+  ],
+  "warning": "Locked test evaluated exactly once after candidate freeze."
+}

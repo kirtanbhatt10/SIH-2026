@@ -1,0 +1,46 @@
+{
+  "model_name": "rbf_svm_balanced",
+  "feature_set": "base_32",
+  "feature_count": 32,
+  "best_params": {
+    "clf__C": 5.0,
+    "clf__gamma": "scale"
+  },
+  "calibration": "uncalibrated",
+  "selection_partition": "cal_dev",
+  "selection_ranking": "macro_f1, -benign_fpr, threat_recall, accuracy, -latency",
+  "cal_dev_metrics": {
+    "model_name": "rbf_svm_balanced",
+    "feature_set": "base_32",
+    "best_params": {
+      "clf__C": 5.0,
+      "clf__gamma": "scale"
+    },
+    "accuracy": 0.8512110726643599,
+    "macro_f1": 0.8507843711750758,
+    "weighted_f1": 0.8473308293795533,
+    "benign_precision": 0.8333333333333334,
+    "benign_recall": 0.9821428571428571,
+    "benign_false_positive_rate": 0.017857142857142856,
+    "threat_precision": 0.8995421245421246,
+    "threat_recall": 0.8159729891767379,
+    "brier_score_threat": 0.03295001104186736,
+    "expected_calibration_error_threat": 0.044934433138050484,
+    "latency_ms_per_sample": 0.05091430218996721
+  },
+  "frozen_baseline_reference": {
+    "accuracy": 0.7948,
+    "macro_f1": 0.8246,
+    "weighted_f1": 0.7973,
+    "benign_precision": 0.875,
+    "benign_recall": 0.9032,
+    "benign_fpr": 0.0968,
+    "threat_precision": 0.8277,
+    "threat_recall": 0.8046,
+    "brier": 0.0414,
+    "ece": 0.0413,
+    "latency_ms_per_sample": 0.0285
+  },
+  "qualifies_for_targets_on_cal_dev": true,
+  "qualification_notes": []
+}

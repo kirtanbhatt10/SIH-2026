@@ -1,0 +1,61 @@
+{
+  "shortcuts": [
+    {
+      "feature_or_parameter": "frequency_deviation",
+      "affected_classes": "all",
+      "evidence": "Depth-3 decision tree on metadata alone achieves 1.000 accuracy on dev.",
+      "why_unrealistic": "Real OTA classifiers should not rely on generation metadata.",
+      "severity": "HIGH",
+      "recommended_fix": "Ensure parameter ranges overlap across classes; avoid class-unique SNR/amplitude bands."
+    },
+    {
+      "feature_or_parameter": "bit_rate",
+      "affected_classes": "all",
+      "evidence": "Depth-3 decision tree on metadata alone achieves 0.736 accuracy on dev.",
+      "why_unrealistic": "Real OTA classifiers should not rely on generation metadata.",
+      "severity": "MEDIUM",
+      "recommended_fix": "Ensure parameter ranges overlap across classes; avoid class-unique SNR/amplitude bands."
+    },
+    {
+      "feature_or_parameter": "benign_variant=steady_ultrasonic_hum",
+      "affected_classes": "benign internal",
+      "evidence": "118 samples share variant label (internal diversity check).",
+      "why_unrealistic": "Not a classifier shortcut unless variants leak to other classes.",
+      "severity": "LOW",
+      "recommended_fix": "Monitor feature overlap across benign variants."
+    },
+    {
+      "feature_or_parameter": "benign_variant=band_limited_hiss",
+      "affected_classes": "benign internal",
+      "evidence": "111 samples share variant label (internal diversity check).",
+      "why_unrealistic": "Not a classifier shortcut unless variants leak to other classes.",
+      "severity": "LOW",
+      "recommended_fix": "Monitor feature overlap across benign variants."
+    },
+    {
+      "feature_or_parameter": "benign_variant=ambient_hf_boost",
+      "affected_classes": "benign internal",
+      "evidence": "86 samples share variant label (internal diversity check).",
+      "why_unrealistic": "Not a classifier shortcut unless variants leak to other classes.",
+      "severity": "LOW",
+      "recommended_fix": "Monitor feature overlap across benign variants."
+    },
+    {
+      "feature_or_parameter": "benign_variant=ambient",
+      "affected_classes": "benign internal",
+      "evidence": "58 samples share variant label (internal diversity check).",
+      "why_unrealistic": "Not a classifier shortcut unless variants leak to other classes.",
+      "severity": "LOW",
+      "recommended_fix": "Monitor feature overlap across benign variants."
+    },
+    {
+      "feature_or_parameter": "benign_variant=white",
+      "affected_classes": "benign internal",
+      "evidence": "34 samples share variant label (internal diversity check).",
+      "why_unrealistic": "Not a classifier shortcut unless variants leak to other classes.",
+      "severity": "LOW",
+      "recommended_fix": "Monitor feature overlap across benign variants."
+    }
+  ],
+  "n_flagged": 2
+}

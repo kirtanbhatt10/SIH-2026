@@ -1,0 +1,19 @@
+# Generated artifacts — regenerate with the canonical phase train commands (see ml/README.md)
+output/
+training_data/
+*.joblib
+*.pkl
+*.npy
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# OS
+.DS_Store
+__MACOSX/
+*.bak
+apply_fixes.py

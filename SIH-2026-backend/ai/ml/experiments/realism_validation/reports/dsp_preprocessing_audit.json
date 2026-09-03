@@ -1,0 +1,45 @@
+{
+  "squelch_collapsed_by_class_dev": {
+    "benign": 0,
+    "fsk": 0,
+    "ook": 0,
+    "chirp": 0,
+    "tone": 0
+  },
+  "benign_vs_ook_duty_cycle": {
+    "benign_mean": 0.9206081081081081,
+    "ook_mean": 0.6844135802469136,
+    "overlap_bhattacharyya_proxy": 1.0
+  },
+  "findings": [
+    {
+      "stage": "bandpass + peak normalize + squelch (AudioPreprocessor)",
+      "finding": "Squelch floor 0.05 zeroes quiet chunks; collapsed vectors share fixed fingerprint.",
+      "may_explain": "Low-SNR benign/OOK confusion when envelope statistics survive squelch differently.",
+      "severity": "MEDIUM"
+    },
+    {
+      "stage": "fixed 2048-sample FFT window (FeatureExtractor)",
+      "finding": "Single ~42.7 ms window aggregates FSK symbol transitions and tone steady-state similarly.",
+      "may_explain": "FSK -> Tone when deviation is small or tone is stable within window.",
+      "severity": "HIGH"
+    },
+    {
+      "stage": "temporal features (duty_cycle, bit_rate_estimate)",
+      "finding": "Benign mean duty_cycle=0.921, OOK mean duty_cycle=0.684.",
+      "may_explain": "OOK -> Benign and Benign -> OOK when ambient envelope mimics on/off stats.",
+      "severity": "HIGH"
+    },
+    {
+      "stage": "ultrasonic band energy features",
+      "finding": "Energy ratio features compress amplitude differences after normalization.",
+      "may_explain": "Amplitude/SNR diversity partially lost before classifier.",
+      "severity": "MEDIUM"
+    }
+  ],
+  "dsp_code_references": [
+    "ai/dsp/audio_preprocessing.py \u2014 bandpass 17500-21500, squelch 0.05",
+    "ai/dsp/feature_extraction.py \u2014 32 features from single chunk",
+    "ai/ml/dataset_v2/generator.py \u2014 crop/regen for squelch avoidance"
+  ]
+}

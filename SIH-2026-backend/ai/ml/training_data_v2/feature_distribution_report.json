@@ -1,0 +1,322 @@
+[
+  {
+    "feature": "ultrasonic_energy",
+    "min": 1e-12,
+    "max": 392195.9138915437,
+    "mean": 200461.58103111023,
+    "std": 116183.29551528816,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "total_energy",
+    "min": 1e-12,
+    "max": 392195.93964657857,
+    "mean": 207405.6000437673,
+    "std": 110994.62332479689,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "energy_ratio",
+    "min": 0.0001308581897806585,
+    "max": 1.0,
+    "mean": 0.9290078030098917,
+    "std": 0.16795054221557668,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "energy_db",
+    "min": -116.98970004336019,
+    "max": 55.93503064641303,
+    "mean": 49.38936655953527,
+    "std": 17.980376134618478,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "spectral_centroid",
+    "min": 0.0,
+    "max": 20989.39383134954,
+    "mean": 19389.304566331088,
+    "std": 2008.3746360801536,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "spectral_bandwidth",
+    "min": 0.0,
+    "max": 1188.6751852907,
+    "mean": 568.0140965708125,
+    "std": 258.47711828285617,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "spectral_flatness",
+    "min": 2.8787224729658603e-08,
+    "max": 1.0,
+    "mean": 0.13490280466698254,
+    "std": 0.2110084710621194,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "spectral_rolloff",
+    "min": 18000.0,
+    "max": 21000.0,
+    "mean": 19874.71875,
+    "std": 758.0447897850842,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "spectral_skewness",
+    "min": -37.300315500213955,
+    "max": 28.135506767867625,
+    "mean": -0.28571986288341195,
+    "std": 4.46204692178225,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "spectral_kurtosis",
+    "min": 0.0,
+    "max": 1722.5215378133191,
+    "mean": 35.081358664478046,
+    "std": 133.63004906893937,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "peak_frequency",
+    "min": 18000.0,
+    "max": 21000.0,
+    "mean": 19604.971875,
+    "std": 784.1577900133824,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "peak_magnitude",
+    "min": 0.0,
+    "max": 510.9741161000971,
+    "mean": 229.9195319357926,
+    "std": 153.40976131642572,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "peak_prominence",
+    "min": 0.0,
+    "max": 510.9564814132631,
+    "mean": 222.4524805193008,
+    "std": 154.85590329666977,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "num_peaks",
+    "min": 0.0,
+    "max": 33.0,
+    "mean": 6.6444,
+    "std": 9.447303776210438,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "peak_spacing_mean",
+    "min": 0.0,
+    "max": 2835.9375,
+    "mean": 199.66802949986956,
+    "std": 399.3814937698136,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "peak_spacing_std",
+    "min": 0.0,
+    "max": 1171.1456063402193,
+    "mean": 54.43996243782366,
+    "std": 135.2424713162711,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "tonal_prominence",
+    "min": 0.0,
+    "max": 631.9457086586596,
+    "mean": 87.01723985936823,
+    "std": 88.07644882770855,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "harmonic_ratio",
+    "min": 0.0,
+    "max": 0.9999999302678932,
+    "mean": 0.587018908793799,
+    "std": 0.3656441360030886,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "crest_factor",
+    "min": 1.0,
+    "max": 19.48558254930481,
+    "mean": 2.27369213737929,
+    "std": 1.1534657341059322,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "zero_crossing_rate",
+    "min": 0.0,
+    "max": 0.8876953124999996,
+    "mean": 0.8070708984374998,
+    "std": 0.08464427997507976,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "rms_amplitude",
+    "min": 0.0,
+    "max": 0.6999399427516821,
+    "mean": 0.48895546581718624,
+    "std": 0.14677580874390345,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "amplitude_envelope_std",
+    "min": 0.0,
+    "max": 0.33304026856249586,
+    "mean": 0.07506121562281906,
+    "std": 0.09792957396672465,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "onset_strength",
+    "min": 0.0,
+    "max": 0.6420949363761189,
+    "mean": 0.15820741308851863,
+    "std": 0.16987484822610643,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "temporal_flatness",
+    "min": 0.002783134366993022,
+    "max": 1.0,
+    "mean": 0.8624534828467926,
+    "std": 0.27442201777239317,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "duty_cycle",
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.888675,
+    "std": 0.23681914381020805,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "bit_rate_estimate",
+    "min": 0.0,
+    "max": 105.46874999876404,
+    "mean": 3.8718749999546263,
+    "std": 8.822871224199101,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "mean_magnitude",
+    "min": 0.0,
+    "max": 43.88230429946811,
+    "mean": 14.543148000991758,
+    "std": 7.6580725053171586,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "std_magnitude",
+    "min": 0.0,
+    "max": 54.55736573605256,
+    "mean": 32.21882165610602,
+    "std": 15.676863437684199,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "max_magnitude",
+    "min": 0.0,
+    "max": 510.9741161000971,
+    "mean": 231.0250009541629,
+    "std": 152.97468284332064,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "min_magnitude",
+    "min": 0.0,
+    "max": 8.396997415562884,
+    "mean": 0.6975518533275318,
+    "std": 0.7921670439537662,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "magnitude_range",
+    "min": 0.0,
+    "max": 510.9722894682843,
+    "mean": 230.32744910083534,
+    "std": 153.25596319989168,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  },
+  {
+    "feature": "coefficient_of_variation",
+    "min": 0.0,
+    "max": 8.38851785484383,
+    "mean": 2.7230915199300916,
+    "std": 2.0093534795304135,
+    "nan_count": 0,
+    "inf_count": 0,
+    "suspicious_constant": false
+  }
+]

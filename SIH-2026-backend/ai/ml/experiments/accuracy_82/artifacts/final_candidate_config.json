@@ -1,0 +1,67 @@
+{
+  "experiment_id": "accuracy_82_data_diversity_v1",
+  "selected_experiment": "C_secondary_model",
+  "model_name": "hist_gradient_boosting",
+  "feature_set": "base_32_plus_engineered",
+  "feature_count": 40,
+  "best_params": {
+    "max_depth": 4,
+    "learning_rate": 0.12,
+    "max_leaf_nodes": 63
+  },
+  "calibration": "uncalibrated",
+  "dataset": "C:\\Users\\kirtan ishankumar\\Desktop\\ai\\ml\\training_data_v2_experiment",
+  "dataset_version": "dataset_v2_experiment.0",
+  "generator_version": "dataset_v2_generator-1.2-experiment-diversity",
+  "selection_partition": "cal_dev",
+  "selection_ranking": "accuracy, macro_f1, -benign_fpr, threat_recall",
+  "cal_dev_metrics": {
+    "experiment": "C_secondary_model",
+    "model_name": "hist_gradient_boosting",
+    "feature_set": "base_32_plus_engineered",
+    "n_features": 40,
+    "best_params": {
+      "max_depth": 4,
+      "learning_rate": 0.12,
+      "max_leaf_nodes": 63
+    },
+    "accuracy": 0.8046647230320699,
+    "macro_f1": 0.7723010793829757,
+    "weighted_f1": 0.8084654762760609,
+    "benign_precision": 0.8902439024390244,
+    "benign_recall": 0.8588235294117647,
+    "benign_false_positive_rate": 0.1411764705882353,
+    "threat_precision": 0.7411140583554376,
+    "threat_recall": 0.7583521162760977,
+    "latency_ms_per_sample": 0.018628377063178724,
+    "candidate_key": "C|hist_gradient_boosting|base_40"
+  },
+  "qualifies_for_targets_on_cal_dev": false,
+  "qualification_notes": [
+    "accuracy=0.8047 failed target >=0.8200",
+    "macro_f1=0.7723 failed target >=0.8200",
+    "benign_fpr=0.1412 failed target <=0.1000",
+    "threat_recall=0.7584 failed target >=0.8000"
+  ],
+  "experiments_run": {
+    "A_same_model": true,
+    "B_feature_extension": true,
+    "C_secondary_models": true
+  },
+  "frozen_baseline_reference": {
+    "model": "linear_svm_balanced",
+    "calibration": "uncalibrated",
+    "dataset_version": "dataset_v2_clean.0",
+    "locked_test": {
+      "accuracy": 0.7948,
+      "macro_f1": 0.8246,
+      "weighted_f1": 0.7973,
+      "benign_precision": 0.875,
+      "benign_recall": 0.9032,
+      "benign_fpr": 0.0968,
+      "threat_precision": 0.8277,
+      "threat_recall": 0.8046,
+      "latency_ms_per_sample": 0.0285
+    }
+  }
+}

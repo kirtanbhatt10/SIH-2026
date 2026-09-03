@@ -1,0 +1,234 @@
+{
+  "n_features": 32,
+  "feature_names": [
+    "ultrasonic_energy",
+    "total_energy",
+    "energy_ratio",
+    "energy_db",
+    "spectral_centroid",
+    "spectral_bandwidth",
+    "spectral_flatness",
+    "spectral_rolloff",
+    "spectral_skewness",
+    "spectral_kurtosis",
+    "peak_frequency",
+    "peak_magnitude",
+    "peak_prominence",
+    "num_peaks",
+    "peak_spacing_mean",
+    "peak_spacing_std",
+    "tonal_prominence",
+    "harmonic_ratio",
+    "crest_factor",
+    "zero_crossing_rate",
+    "rms_amplitude",
+    "amplitude_envelope_std",
+    "onset_strength",
+    "temporal_flatness",
+    "duty_cycle",
+    "bit_rate_estimate",
+    "mean_magnitude",
+    "std_magnitude",
+    "max_magnitude",
+    "min_magnitude",
+    "magnitude_range",
+    "coefficient_of_variation"
+  ],
+  "ranked_features": [
+    {
+      "feature": "magnitude_range",
+      "variance": 23287.81337400272,
+      "mutual_information": 0.5565108217147492,
+      "rf_importance": 0.038577869791080806
+    },
+    {
+      "feature": "max_magnitude",
+      "variance": 23171.847522508142,
+      "mutual_information": 0.5485044675674025,
+      "rf_importance": 0.03393336786310677
+    },
+    {
+      "feature": "peak_magnitude",
+      "variance": 23230.462521226462,
+      "mutual_information": 0.5435895559980382,
+      "rf_importance": 0.027037493232067417
+    },
+    {
+      "feature": "harmonic_ratio",
+      "variance": 0.13022668657550343,
+      "mutual_information": 0.5411671786986021,
+      "rf_importance": 0.06349278031446202
+    },
+    {
+      "feature": "tonal_prominence",
+      "variance": 7234.009489406652,
+      "mutual_information": 0.5335602914618547,
+      "rf_importance": 0.07882047674494715
+    },
+    {
+      "feature": "peak_prominence",
+      "variance": 23670.991380088835,
+      "mutual_information": 0.5263453729857965,
+      "rf_importance": 0.022428592439248683
+    },
+    {
+      "feature": "mean_magnitude",
+      "variance": 51.91908742897108,
+      "mutual_information": 0.5249938687406512,
+      "rf_importance": 0.05575204719553903
+    },
+    {
+      "feature": "coefficient_of_variation",
+      "variance": 4.341286662057744,
+      "mutual_information": 0.4669767160648157,
+      "rf_importance": 0.025569674767832788
+    },
+    {
+      "feature": "temporal_flatness",
+      "variance": 0.06204856266124603,
+      "mutual_information": 0.4513309324693089,
+      "rf_importance": 0.06438627907064291
+    },
+    {
+      "feature": "spectral_flatness",
+      "variance": 0.036075289764126134,
+      "mutual_information": 0.4296313309583213,
+      "rf_importance": 0.04609021858405992
+    },
+    {
+      "feature": "std_magnitude",
+      "variance": 225.66778758210663,
+      "mutual_information": 0.38140093630107863,
+      "rf_importance": 0.02839740605304975
+    },
+    {
+      "feature": "energy_ratio",
+      "variance": 0.017170444415246636,
+      "mutual_information": 0.3705469025224648,
+      "rf_importance": 0.04800653007574415
+    },
+    {
+      "feature": "amplitude_envelope_std",
+      "variance": 0.008239059388089437,
+      "mutual_information": 0.36665009796356296,
+      "rf_importance": 0.05737845385235549
+    },
+    {
+      "feature": "onset_strength",
+      "variance": 0.025109463502141046,
+      "mutual_information": 0.3408767935017263,
+      "rf_importance": 0.03612678683639814
+    },
+    {
+      "feature": "spectral_bandwidth",
+      "variance": 74112.52902282303,
+      "mutual_information": 0.3263421432280569,
+      "rf_importance": 0.046930101446167216
+    },
+    {
+      "feature": "energy_db",
+      "variance": 27.964163180814126,
+      "mutual_information": 0.32531911657514145,
+      "rf_importance": 0.03798598872121974
+    },
+    {
+      "feature": "ultrasonic_energy",
+      "variance": 12713236146.004143,
+      "mutual_information": 0.32456419327853814,
+      "rf_importance": 0.030590820666553716
+    },
+    {
+      "feature": "spectral_kurtosis",
+      "variance": 88676.11242838085,
+      "mutual_information": 0.30425047883521383,
+      "rf_importance": 0.028694999785980464
+    },
+    {
+      "feature": "total_energy",
+      "variance": 11679455180.826847,
+      "mutual_information": 0.2961060792116337,
+      "rf_importance": 0.02153535072904071
+    },
+    {
+      "feature": "rms_amplitude",
+      "variance": 0.01845599714528275,
+      "mutual_information": 0.2695431861601114,
+      "rf_importance": 0.015021335589764923
+    },
+    {
+      "feature": "crest_factor",
+      "variance": 1.0985685524950128,
+      "mutual_information": 0.2682797322282733,
+      "rf_importance": 0.02427140603971666
+    },
+    {
+      "feature": "peak_spacing_mean",
+      "variance": 127494.87640610331,
+      "mutual_information": 0.26282198483707075,
+      "rf_importance": 0.011709972725209114
+    },
+    {
+      "feature": "num_peaks",
+      "variance": 87.27189843484999,
+      "mutual_information": 0.2563459440081286,
+      "rf_importance": 0.012072054181183794
+    },
+    {
+      "feature": "bit_rate_estimate",
+      "variance": 71.07121506840882,
+      "mutual_information": 0.23664720702858189,
+      "rf_importance": 0.01891292412781297
+    },
+    {
+      "feature": "peak_spacing_std",
+      "variance": 14239.41291875636,
+      "mutual_information": 0.2342489795254541,
+      "rf_importance": 0.003516577365886723
+    },
+    {
+      "feature": "duty_cycle",
+      "variance": 0.03579463718956118,
+      "mutual_information": 0.23043749677820502,
+      "rf_importance": 0.01791450774877293
+    },
+    {
+      "feature": "spectral_skewness",
+      "variance": 33.499200546383655,
+      "mutual_information": 0.2068600354421859,
+      "rf_importance": 0.015444640779615347
+    },
+    {
+      "feature": "spectral_rolloff",
+      "variance": 620599.072631061,
+      "mutual_information": 0.20294400368662435,
+      "rf_importance": 0.013335273701676168
+    },
+    {
+      "feature": "min_magnitude",
+      "variance": 0.6797364238264081,
+      "mutual_information": 0.1648152426562821,
+      "rf_importance": 0.027257834456484966
+    },
+    {
+      "feature": "zero_crossing_rate",
+      "variance": 0.0006690891532156644,
+      "mutual_information": 0.15835815782599338,
+      "rf_importance": 0.01953446195467706
+    },
+    {
+      "feature": "spectral_centroid",
+      "variance": 281080.35796566564,
+      "mutual_information": 0.15227152384054143,
+      "rf_importance": 0.01591583149279695
+    },
+    {
+      "feature": "peak_frequency",
+      "variance": 617747.2236857964,
+      "mutual_information": 0.07958114237733183,
+      "rf_importance": 0.013357941666905486
+    }
+  ],
+  "notes": [
+    "Feature analysis on experiment development indices only."
+  ]
+}

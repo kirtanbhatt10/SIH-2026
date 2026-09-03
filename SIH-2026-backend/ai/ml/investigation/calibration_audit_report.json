@@ -1,0 +1,14 @@
+{
+  "uncalibrated_phase3_test": {
+    "accuracy": 0.6811279826464208,
+    "macro_f1": 0.6825388811458776,
+    "benign_fpr": 0.6210526315789474,
+    "benign_recall": 0.37894736842105264,
+    "threat_recall": 0.7647465044756968
+  },
+  "isotonic_threat_binary_on_test": {
+    "benign_fpr": 0.6421052631578947,
+    "threat_recall": 0.9316939890710383
+  },
+  "assessment": "Isotonic calibration fit on train threat probability can worsen held-out benign FPR if threat scores for benign samples are miscalibrated upward."
+}

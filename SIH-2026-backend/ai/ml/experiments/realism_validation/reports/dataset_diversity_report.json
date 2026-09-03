@@ -1,0 +1,110 @@
+{
+  "per_class": {
+    "benign": {
+      "n_samples": 407,
+      "feature_std_mean": 8413.41194274174,
+      "feature_std_max": 136242.10205878047,
+      "mean_nearest_neighbor_distance": 2580.9876353138475,
+      "duplicate_feature_rate": 0.0,
+      "unique_generation_groups": 30,
+      "parameter_std": {
+        "snr": 7.355177345816087,
+        "amplitude": 0.13842980037994623,
+        "frequency": 743.799451834697,
+        "peak_amplitude": 0.9512237582763341,
+        "source_duration_sec": 0.060565908437253055,
+        "crop_offset_sec": 0.08648078263689399,
+        "crop_attempts": 0.594269612896699
+      },
+      "snr_std": 7.355177345816087,
+      "frequency_std": 743.799451834697,
+      "amplitude_std": 0.13842980037994623
+    },
+    "fsk": {
+      "n_samples": 379,
+      "feature_std_mean": 4370.970013893593,
+      "feature_std_max": 69378.8950009873,
+      "mean_nearest_neighbor_distance": 2384.9810998519647,
+      "duplicate_feature_rate": 0.0,
+      "unique_generation_groups": 16,
+      "parameter_std": {
+        "snr": 9.793638455776785,
+        "amplitude": 0.1255622515323222,
+        "frequency": 446.6229939948002,
+        "frequency_deviation": 467.8775515519594,
+        "bit_rate": 21.322368047052752,
+        "peak_amplitude": 0.09085121274521808,
+        "source_duration_sec": 0.06063122609946523,
+        "crop_offset_sec": 0.08375940523319195,
+        "crop_attempts": 0.05129873903752923
+      },
+      "snr_std": 9.793638455776785,
+      "frequency_std": 446.6229939948002,
+      "amplitude_std": 0.1255622515323222
+    },
+    "ook": {
+      "n_samples": 405,
+      "feature_std_mean": 7240.9124310256,
+      "feature_std_max": 115293.9219848773,
+      "mean_nearest_neighbor_distance": 2375.47760022943,
+      "duplicate_feature_rate": 0.0,
+      "unique_generation_groups": 19,
+      "parameter_std": {
+        "snr": 10.214343407257886,
+        "amplitude": 0.12808852409640797,
+        "frequency": 754.6552931716602,
+        "bit_rate": 11.940949475866672,
+        "peak_amplitude": 0.11069017836979983,
+        "source_duration_sec": 0.05962602101682561,
+        "crop_offset_sec": 0.08215755632743457,
+        "crop_attempts": 0.19479588072410883
+      },
+      "snr_std": 10.214343407257886,
+      "frequency_std": 754.6552931716602,
+      "amplitude_std": 0.12808852409640797
+    },
+    "chirp": {
+      "n_samples": 451,
+      "feature_std_mean": 4639.070494187419,
+      "feature_std_max": 73878.07758989187,
+      "mean_nearest_neighbor_distance": 1433.1570686213274,
+      "duplicate_feature_rate": 0.0,
+      "unique_generation_groups": 36,
+      "parameter_std": {
+        "snr": 10.038478492577438,
+        "amplitude": 0.12880878888548203,
+        "peak_amplitude": 0.0990905195617029,
+        "source_duration_sec": 0.06315835831352147,
+        "crop_offset_sec": 0.08704944416642713,
+        "crop_attempts": 0.0
+      },
+      "snr_std": 10.038478492577438,
+      "frequency_std": null,
+      "amplitude_std": 0.12880878888548203
+    },
+    "tone": {
+      "n_samples": 395,
+      "feature_std_mean": 4918.632479266115,
+      "feature_std_max": 77796.79544191045,
+      "mean_nearest_neighbor_distance": 1703.0679690050845,
+      "duplicate_feature_rate": 0.0,
+      "unique_generation_groups": 19,
+      "parameter_std": {
+        "snr": 10.112941039981097,
+        "amplitude": 0.13303383535576993,
+        "frequency": 766.3112209016501,
+        "peak_amplitude": 0.08794496105938117,
+        "source_duration_sec": 0.060949656797574546,
+        "crop_offset_sec": 0.09213346234291346,
+        "crop_attempts": 0.0
+      },
+      "snr_std": 10.112941039981097,
+      "frequency_std": 766.3112209016501,
+      "amplitude_std": 0.13303383535576993
+    }
+  },
+  "notes": [
+    "Duplicate feature rate counts exact 32-D vector duplicates within development.",
+    "Low NN distance + low parameter spread => narrow class manifold."
+  ]
+}

@@ -1,0 +1,22 @@
+
+# Personal member photos
+Photos Of Member/
+coddeees.txt
+
+# Generated frontend cache
+.vite/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Audio samples / generated audio
+*.wav
+
+# Temporary model inspection files
+.model-inspect/
+
+# Force-ignore backend sample audio
+SIH-2026-backend/samples/backend2/*.wav
+
+# Force-ignore backend sample audio
+SIH-2026-backend/samples/backend2/*.wav

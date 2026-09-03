@@ -1,0 +1,109 @@
+{
+  "model_name": "baseline",
+  "accuracy": 0.8269896193771626,
+  "macro_f1": 0.8252119140218724,
+  "weighted_f1": 0.8239574652694215,
+  "per_class": {
+    "benign": {
+      "precision": 0.75,
+      "recall": 0.9642857142857143,
+      "f1": 0.84375,
+      "support": 56
+    },
+    "fsk": {
+      "precision": 0.8064516129032258,
+      "recall": 0.5813953488372093,
+      "f1": 0.6756756756756757,
+      "support": 43
+    },
+    "ook": {
+      "precision": 0.9333333333333333,
+      "recall": 0.7272727272727273,
+      "f1": 0.8175182481751825,
+      "support": 77
+    },
+    "chirp": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 46
+    },
+    "tone": {
+      "precision": 0.725,
+      "recall": 0.8656716417910447,
+      "f1": 0.7891156462585034,
+      "support": 67
+    }
+  },
+  "benign_recall": 0.9642857142857143,
+  "threat_recall": 0.7935849294752453,
+  "threat_recall_definition": "Macro-average recall over threat classes (fsk, ook, chirp, tone).",
+  "benign_false_positive_rate": 0.03571428571428571,
+  "benign_false_positive_rate_definition": "Fraction of benign test samples predicted as any threat class.",
+  "n_benign": 56,
+  "n_benign_as_threat": 2,
+  "confusion_matrix": [
+    [
+      54,
+      0,
+      2,
+      0,
+      0
+    ],
+    [
+      3,
+      25,
+      2,
+      0,
+      13
+    ],
+    [
+      10,
+      2,
+      56,
+      0,
+      9
+    ],
+    [
+      0,
+      0,
+      0,
+      46,
+      0
+    ],
+    [
+      5,
+      4,
+      0,
+      0,
+      58
+    ]
+  ],
+  "confusion_matrix_labels": [
+    "benign",
+    "fsk",
+    "ook",
+    "chirp",
+    "tone"
+  ],
+  "predicted_classes_order": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "probability_shape": [
+    289,
+    5
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n      benign       0.75      0.96      0.84        56\n         fsk       0.81      0.58      0.68        43\n         ook       0.93      0.73      0.82        77\n       chirp       1.00      1.00      1.00        46\n        tone       0.72      0.87      0.79        67\n\n    accuracy                           0.83       289\n   macro avg       0.84      0.83      0.83       289\nweighted avg       0.84      0.83      0.82       289\n",
+  "latency_ms_mean": 0.013308073817298455,
+  "latency_ms_std": 0.0025600389356275183,
+  "partition": "cal_dev_baseline_reproduction",
+  "benign_precision": 0.75,
+  "threat_precision": 0.8661962365591398,
+  "brier_score_threat": 0.050374291675230096,
+  "expected_calibration_error_threat": 0.06390118372878155,
+  "latency_ms_per_sample": 0.013308073817298455
+}

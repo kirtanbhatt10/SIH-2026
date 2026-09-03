@@ -1,0 +1,106 @@
+{
+  "old_dataset_saved_model": {
+    "accuracy": 0.6811279826464208,
+    "macro_f1": 0.6825388811458776,
+    "benign_fpr": 0.6210526315789474,
+    "benign_recall": 0.37894736842105264,
+    "threat_recall": 0.7647465044756968
+  },
+  "clean_dataset_selected_model": {
+    "accuracy": 0.8077753779697624,
+    "macro_f1": 0.8342152890527303,
+    "benign_fpr": 0.08602150537634409,
+    "benign_recall": 0.9139784946236559,
+    "threat_recall": 0.8174931129476585,
+    "selected_model": "linear_svm_balanced",
+    "selection_reason": "Selected linear_svm_balanced based on priority: macro F1, threat recall, benign FPR (lower better), accuracy, latency. linear_svm_balanced: macro_f1=0.8342, threat_recall=0.8175, benign_fpr=0.0860, accuracy=0.8078, latency=0.0118 ms/sample. Tradeoff note: runner-up logistic_regression_balanced had macro_f1=0.8263, threat_recall=0.8118, benign_fpr=0.1075, latency=0.0025 ms/sample."
+  },
+  "duplicate_stats": {
+    "old": {
+      "duplicate_groups": 1,
+      "cross_split_exact": 6,
+      "collapsed_benign": 0
+    },
+    "clean": {
+      "duplicate_groups": 0,
+      "cross_split_exact": 0,
+      "collapsed_benign": 0
+    }
+  },
+  "calibration_clean_dataset": {
+    "uncalibrated": {
+      "benign_fpr": 0.08602150537634409,
+      "benign_recall": 0.9139784946236559,
+      "threat_recall": 0.8174931129476585,
+      "macro_f1": 0.8342152890527303,
+      "accuracy": 0.8077753779697624
+    },
+    "isotonic_threat_binary": {
+      "benign_fpr": 0.07526881720430108,
+      "threat_recall": 0.9540540540540541,
+      "brier": 0.04202576594757835
+    }
+  },
+  "model_experiments_clean": [
+    {
+      "model": "random_forest",
+      "accuracy": 0.7494600431965442,
+      "macro_f1": 0.7829121923604668,
+      "benign_fpr": 0.11827956989247312,
+      "benign_recall": 0.8817204301075269,
+      "threat_recall": 0.7558203359638767,
+      "latency_ms_per_sample": 0.05965968322507867
+    },
+    {
+      "model": "rbf_svm",
+      "accuracy": 0.7732181425485961,
+      "macro_f1": 0.8054530114845649,
+      "benign_fpr": 0.10752688172043011,
+      "benign_recall": 0.8924731182795699,
+      "threat_recall": 0.7857981731187473,
+      "latency_ms_per_sample": 0.06464758819362566
+    },
+    {
+      "model": "logistic_regression",
+      "accuracy": 0.7991360691144709,
+      "macro_f1": 0.8262142457322698,
+      "benign_fpr": 0.10752688172043011,
+      "benign_recall": 0.8924731182795699,
+      "threat_recall": 0.8121015348288076,
+      "latency_ms_per_sample": 0.0010902807774697163
+    },
+    {
+      "model": "logistic_regression_balanced",
+      "accuracy": 0.7991360691144709,
+      "macro_f1": 0.8262590826790517,
+      "benign_fpr": 0.10752688172043011,
+      "benign_recall": 0.8924731182795699,
+      "threat_recall": 0.8117866981503346,
+      "latency_ms_per_sample": 0.0010508999273086588
+    },
+    {
+      "model": "random_forest_balanced",
+      "accuracy": 0.734341252699784,
+      "macro_f1": 0.7689939091888017,
+      "benign_fpr": 0.12903225806451613,
+      "benign_recall": 0.8709677419354839,
+      "threat_recall": 0.7424149216015244,
+      "latency_ms_per_sample": 0.10323326133946714
+    },
+    {
+      "model": "linear_svm_balanced",
+      "accuracy": 0.8077753779697624,
+      "macro_f1": 0.8342152890527303,
+      "benign_fpr": 0.08602150537634409,
+      "benign_recall": 0.9139784946236559,
+      "threat_recall": 0.8174931129476585,
+      "latency_ms_per_sample": 0.012873218143137981
+    }
+  ],
+  "split": {
+    "seed": 42,
+    "train_size": 2037,
+    "test_size": 463,
+    "policy": "stratified_grouped_by_generation_group"
+  }
+}

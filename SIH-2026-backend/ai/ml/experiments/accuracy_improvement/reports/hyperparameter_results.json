@@ -1,0 +1,162 @@
+[
+  {
+    "model_name": "linear_svm_balanced",
+    "best_params": {
+      "clf__C": 2.0
+    },
+    "best_inner_dev": {
+      "model_name": "linear_svm_balanced",
+      "params": {
+        "clf__C": 2.0
+      },
+      "accuracy": 0.8105726872246696,
+      "macro_f1": 0.7948538011695907,
+      "weighted_f1": 0.8090926655846665,
+      "benign_false_positive_rate": 0.0,
+      "benign_recall": 1.0,
+      "threat_recall": 0.7525373931623931,
+      "threat_precision": 0.8401515151515152,
+      "benign_precision": 0.8688524590163934,
+      "brier_score_threat": 0.025640411577088233,
+      "expected_calibration_error_threat": 0.08787289809261155,
+      "latency_ms_per_sample": 0.010391189428923307
+    },
+    "n_trials": 6
+  },
+  {
+    "model_name": "logistic_regression_balanced",
+    "best_params": {
+      "clf__C": 5.0
+    },
+    "best_inner_dev": {
+      "model_name": "logistic_regression_balanced",
+      "params": {
+        "clf__C": 5.0
+      },
+      "accuracy": 0.8458149779735683,
+      "macro_f1": 0.8344788827934895,
+      "weighted_f1": 0.847197270970968,
+      "benign_false_positive_rate": 0.018867924528301886,
+      "benign_recall": 0.9811320754716981,
+      "threat_recall": 0.8023504273504274,
+      "threat_precision": 0.8567431917464449,
+      "benign_precision": 0.8813559322033898,
+      "brier_score_threat": 0.01937769052266915,
+      "expected_calibration_error_threat": 0.06379890248710345,
+      "latency_ms_per_sample": 0.0012534508083442023
+    },
+    "n_trials": 5
+  },
+  {
+    "model_name": "rbf_svm_balanced",
+    "best_params": {
+      "clf__C": 5.0,
+      "clf__gamma": "scale"
+    },
+    "best_inner_dev": {
+      "model_name": "rbf_svm_balanced",
+      "params": {
+        "clf__C": 5.0,
+        "clf__gamma": "scale"
+      },
+      "accuracy": 0.8325991189427313,
+      "macro_f1": 0.8199740447007929,
+      "weighted_f1": 0.8341519056224835,
+      "benign_false_positive_rate": 0.0,
+      "benign_recall": 1.0,
+      "threat_recall": 0.7780448717948718,
+      "threat_precision": 0.8510348583877996,
+      "benign_precision": 0.8688524590163934,
+      "brier_score_threat": 0.033702064217465806,
+      "expected_calibration_error_threat": 0.05562046390881293,
+      "latency_ms_per_sample": 0.04265183553701966
+    },
+    "n_trials": 16
+  },
+  {
+    "model_name": "random_forest_balanced",
+    "best_params": {
+      "n_estimators": 400,
+      "max_depth": 40,
+      "min_samples_leaf": 1,
+      "max_features": 0.5
+    },
+    "best_inner_dev": {
+      "model_name": "random_forest_balanced",
+      "params": {
+        "n_estimators": 400,
+        "max_depth": 40,
+        "min_samples_leaf": 1,
+        "max_features": 0.5
+      },
+      "accuracy": 0.8370044052863436,
+      "macro_f1": 0.8246622706011497,
+      "weighted_f1": 0.8383536280305152,
+      "benign_false_positive_rate": 0.018867924528301886,
+      "benign_recall": 0.9811320754716981,
+      "threat_recall": 0.7936698717948718,
+      "threat_precision": 0.8262883668056081,
+      "benign_precision": 0.9629629629629629,
+      "brier_score_threat": 0.01768345264317181,
+      "expected_calibration_error_threat": 0.051707048458149614,
+      "latency_ms_per_sample": 0.25643303964625774
+    },
+    "n_trials": 24
+  },
+  {
+    "model_name": "extra_trees_balanced",
+    "best_params": {
+      "n_estimators": 300,
+      "max_depth": 24,
+      "min_samples_leaf": 1
+    },
+    "best_inner_dev": {
+      "model_name": "extra_trees_balanced",
+      "params": {
+        "n_estimators": 300,
+        "max_depth": 24,
+        "min_samples_leaf": 1
+      },
+      "accuracy": 0.8149779735682819,
+      "macro_f1": 0.7992589324774815,
+      "weighted_f1": 0.8149209359640069,
+      "benign_false_positive_rate": 0.0,
+      "benign_recall": 1.0,
+      "threat_recall": 0.7537393162393162,
+      "threat_precision": 0.8107816711590297,
+      "benign_precision": 0.8833333333333333,
+      "brier_score_threat": 0.025204289045242103,
+      "expected_calibration_error_threat": 0.07148153973390903,
+      "latency_ms_per_sample": 0.26310837004446047
+    },
+    "n_trials": 12
+  },
+  {
+    "model_name": "hist_gradient_boosting",
+    "best_params": {
+      "max_depth": 6,
+      "learning_rate": 0.05,
+      "max_leaf_nodes": 63
+    },
+    "best_inner_dev": {
+      "model_name": "hist_gradient_boosting",
+      "params": {
+        "max_depth": 6,
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 63
+      },
+      "accuracy": 0.8590308370044053,
+      "macro_f1": 0.8468728800042499,
+      "weighted_f1": 0.8584619115530414,
+      "benign_false_positive_rate": 0.0,
+      "benign_recall": 1.0,
+      "threat_recall": 0.8214476495726495,
+      "threat_precision": 0.8602153030190638,
+      "benign_precision": 0.9814814814814815,
+      "brier_score_threat": 0.01127562556559768,
+      "expected_calibration_error_threat": 0.02991144112526346,
+      "latency_ms_per_sample": 0.023115565343796707
+    },
+    "n_trials": 18
+  }
+]

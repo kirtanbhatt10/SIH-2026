@@ -1,0 +1,394 @@
+{
+  "n_features": 32,
+  "feature_names": [
+    "ultrasonic_energy",
+    "total_energy",
+    "energy_ratio",
+    "energy_db",
+    "spectral_centroid",
+    "spectral_bandwidth",
+    "spectral_flatness",
+    "spectral_rolloff",
+    "spectral_skewness",
+    "spectral_kurtosis",
+    "peak_frequency",
+    "peak_magnitude",
+    "peak_prominence",
+    "num_peaks",
+    "peak_spacing_mean",
+    "peak_spacing_std",
+    "tonal_prominence",
+    "harmonic_ratio",
+    "crest_factor",
+    "zero_crossing_rate",
+    "rms_amplitude",
+    "amplitude_envelope_std",
+    "onset_strength",
+    "temporal_flatness",
+    "duty_cycle",
+    "bit_rate_estimate",
+    "mean_magnitude",
+    "std_magnitude",
+    "max_magnitude",
+    "min_magnitude",
+    "magnitude_range",
+    "coefficient_of_variation"
+  ],
+  "variance": {
+    "ultrasonic_energy": 12750074645.02311,
+    "total_energy": 11711626502.73233,
+    "energy_ratio": 0.01713552893810814,
+    "energy_db": 34.84691269599209,
+    "spectral_centroid": 248321.67679959876,
+    "spectral_bandwidth": 76630.25858016763,
+    "spectral_flatness": 0.03709468433807378,
+    "spectral_rolloff": 533686.2241508894,
+    "spectral_skewness": 34.986191500771255,
+    "spectral_kurtosis": 100863.88822844745,
+    "peak_frequency": 567255.524344296,
+    "peak_magnitude": 24116.106454630568,
+    "peak_prominence": 24683.76761177033,
+    "num_peaks": 88.48858609586331,
+    "peak_spacing_mean": 154861.18412218976,
+    "peak_spacing_std": 17021.348664005458,
+    "tonal_prominence": 8039.361155231374,
+    "harmonic_ratio": 0.13801759235610067,
+    "crest_factor": 1.229274744207379,
+    "zero_crossing_rate": 0.0005675900951782925,
+    "rms_amplitude": 0.019253098046869213,
+    "amplitude_envelope_std": 0.00832584546750912,
+    "onset_strength": 0.025370602836144354,
+    "temporal_flatness": 0.0646058542392197,
+    "duty_cycle": 0.03914955013340449,
+    "bit_rate_estimate": 63.461121050515274,
+    "mean_magnitude": 58.87041859497193,
+    "std_magnitude": 229.46078836106102,
+    "max_magnitude": 23989.678478401212,
+    "min_magnitude": 0.6453653737474679,
+    "magnitude_range": 24099.77444530989,
+    "coefficient_of_variation": 4.606732495611465
+  },
+  "mutual_information": {
+    "ultrasonic_energy": 0.3312506132023274,
+    "total_energy": 0.3107060650695739,
+    "energy_ratio": 0.35432272472661097,
+    "energy_db": 0.3318369195998123,
+    "spectral_centroid": 0.12489236319519836,
+    "spectral_bandwidth": 0.30251265097091906,
+    "spectral_flatness": 0.47104220179745937,
+    "spectral_rolloff": 0.11831525161535783,
+    "spectral_skewness": 0.19734526774178018,
+    "spectral_kurtosis": 0.3049098094260674,
+    "peak_frequency": 0.07968678875280011,
+    "peak_magnitude": 0.5866386534344898,
+    "peak_prominence": 0.5838730635684515,
+    "num_peaks": 0.2623455207686063,
+    "peak_spacing_mean": 0.23522550373395745,
+    "peak_spacing_std": 0.23367718742136345,
+    "tonal_prominence": 0.558831497784315,
+    "harmonic_ratio": 0.5797418858024841,
+    "crest_factor": 0.3228503237229021,
+    "zero_crossing_rate": 0.10537536384871427,
+    "rms_amplitude": 0.3218598472416909,
+    "amplitude_envelope_std": 0.38013852128825265,
+    "onset_strength": 0.3305596057855906,
+    "temporal_flatness": 0.4580558117932543,
+    "duty_cycle": 0.2143898081518425,
+    "bit_rate_estimate": 0.2526938994847656,
+    "mean_magnitude": 0.5842056360629411,
+    "std_magnitude": 0.39497465470352466,
+    "max_magnitude": 0.6034037095662563,
+    "min_magnitude": 0.15358036680602183,
+    "magnitude_range": 0.6088299774224815,
+    "coefficient_of_variation": 0.5376744754503453
+  },
+  "random_forest_importance": {
+    "ultrasonic_energy": 0.03691930657344904,
+    "total_energy": 0.02814502884678838,
+    "energy_ratio": 0.04171604232027598,
+    "energy_db": 0.04041171752408555,
+    "spectral_centroid": 0.01294962230024582,
+    "spectral_bandwidth": 0.046815927112584345,
+    "spectral_flatness": 0.04388504557149265,
+    "spectral_rolloff": 0.012897300991494151,
+    "spectral_skewness": 0.015611689541219975,
+    "spectral_kurtosis": 0.026883620731024096,
+    "peak_frequency": 0.012321786227867391,
+    "peak_magnitude": 0.03264945491904371,
+    "peak_prominence": 0.026086404848761943,
+    "num_peaks": 0.008361644234950292,
+    "peak_spacing_mean": 0.008208803735012813,
+    "peak_spacing_std": 0.0029171217385297525,
+    "tonal_prominence": 0.07756984604317926,
+    "harmonic_ratio": 0.06632308799565273,
+    "crest_factor": 0.023446351979902965,
+    "zero_crossing_rate": 0.012448708486250242,
+    "rms_amplitude": 0.020555668439003413,
+    "amplitude_envelope_std": 0.04980486884147812,
+    "onset_strength": 0.03456209699503219,
+    "temporal_flatness": 0.06377361838926189,
+    "duty_cycle": 0.022620233262477075,
+    "bit_rate_estimate": 0.018212987016385674,
+    "mean_magnitude": 0.05303170277877208,
+    "std_magnitude": 0.030256457592228437,
+    "max_magnitude": 0.04501748752482603,
+    "min_magnitude": 0.023987188437452525,
+    "magnitude_range": 0.03905684947108857,
+    "coefficient_of_variation": 0.022552329530182994
+  },
+  "high_redundancy_pairs_abs_corr_ge_0.95": [
+    {
+      "feature_a": "ultrasonic_energy",
+      "feature_b": "total_energy",
+      "abs_correlation": 0.9879322896641222
+    },
+    {
+      "feature_a": "ultrasonic_energy",
+      "feature_b": "rms_amplitude",
+      "abs_correlation": 0.9598765417436222
+    },
+    {
+      "feature_a": "ultrasonic_energy",
+      "feature_b": "std_magnitude",
+      "abs_correlation": 0.9572777867474983
+    },
+    {
+      "feature_a": "total_energy",
+      "feature_b": "rms_amplitude",
+      "abs_correlation": 0.9650838100658824
+    },
+    {
+      "feature_a": "peak_magnitude",
+      "feature_b": "peak_prominence",
+      "abs_correlation": 0.9672393620423912
+    },
+    {
+      "feature_a": "peak_magnitude",
+      "feature_b": "max_magnitude",
+      "abs_correlation": 0.9971292667872567
+    },
+    {
+      "feature_a": "peak_magnitude",
+      "feature_b": "magnitude_range",
+      "abs_correlation": 0.9971278745701994
+    },
+    {
+      "feature_a": "peak_prominence",
+      "feature_b": "max_magnitude",
+      "abs_correlation": 0.9644660339076497
+    },
+    {
+      "feature_a": "peak_prominence",
+      "feature_b": "magnitude_range",
+      "abs_correlation": 0.9644868525957608
+    },
+    {
+      "feature_a": "amplitude_envelope_std",
+      "feature_b": "onset_strength",
+      "abs_correlation": 0.9500470561854757
+    },
+    {
+      "feature_a": "max_magnitude",
+      "feature_b": "magnitude_range",
+      "abs_correlation": 0.9999892005478289
+    }
+  ],
+  "ranked_features": [
+    {
+      "feature": "magnitude_range",
+      "variance": 24099.77444530989,
+      "mutual_information": 0.6088299774224815,
+      "rf_importance": 0.03905684947108857
+    },
+    {
+      "feature": "max_magnitude",
+      "variance": 23989.678478401212,
+      "mutual_information": 0.6034037095662563,
+      "rf_importance": 0.04501748752482603
+    },
+    {
+      "feature": "peak_magnitude",
+      "variance": 24116.106454630568,
+      "mutual_information": 0.5866386534344898,
+      "rf_importance": 0.03264945491904371
+    },
+    {
+      "feature": "mean_magnitude",
+      "variance": 58.87041859497193,
+      "mutual_information": 0.5842056360629411,
+      "rf_importance": 0.05303170277877208
+    },
+    {
+      "feature": "peak_prominence",
+      "variance": 24683.76761177033,
+      "mutual_information": 0.5838730635684515,
+      "rf_importance": 0.026086404848761943
+    },
+    {
+      "feature": "harmonic_ratio",
+      "variance": 0.13801759235610067,
+      "mutual_information": 0.5797418858024841,
+      "rf_importance": 0.06632308799565273
+    },
+    {
+      "feature": "tonal_prominence",
+      "variance": 8039.361155231374,
+      "mutual_information": 0.558831497784315,
+      "rf_importance": 0.07756984604317926
+    },
+    {
+      "feature": "coefficient_of_variation",
+      "variance": 4.606732495611465,
+      "mutual_information": 0.5376744754503453,
+      "rf_importance": 0.022552329530182994
+    },
+    {
+      "feature": "spectral_flatness",
+      "variance": 0.03709468433807378,
+      "mutual_information": 0.47104220179745937,
+      "rf_importance": 0.04388504557149265
+    },
+    {
+      "feature": "temporal_flatness",
+      "variance": 0.0646058542392197,
+      "mutual_information": 0.4580558117932543,
+      "rf_importance": 0.06377361838926189
+    },
+    {
+      "feature": "std_magnitude",
+      "variance": 229.46078836106102,
+      "mutual_information": 0.39497465470352466,
+      "rf_importance": 0.030256457592228437
+    },
+    {
+      "feature": "amplitude_envelope_std",
+      "variance": 0.00832584546750912,
+      "mutual_information": 0.38013852128825265,
+      "rf_importance": 0.04980486884147812
+    },
+    {
+      "feature": "energy_ratio",
+      "variance": 0.01713552893810814,
+      "mutual_information": 0.35432272472661097,
+      "rf_importance": 0.04171604232027598
+    },
+    {
+      "feature": "energy_db",
+      "variance": 34.84691269599209,
+      "mutual_information": 0.3318369195998123,
+      "rf_importance": 0.04041171752408555
+    },
+    {
+      "feature": "ultrasonic_energy",
+      "variance": 12750074645.02311,
+      "mutual_information": 0.3312506132023274,
+      "rf_importance": 0.03691930657344904
+    },
+    {
+      "feature": "onset_strength",
+      "variance": 0.025370602836144354,
+      "mutual_information": 0.3305596057855906,
+      "rf_importance": 0.03456209699503219
+    },
+    {
+      "feature": "crest_factor",
+      "variance": 1.229274744207379,
+      "mutual_information": 0.3228503237229021,
+      "rf_importance": 0.023446351979902965
+    },
+    {
+      "feature": "rms_amplitude",
+      "variance": 0.019253098046869213,
+      "mutual_information": 0.3218598472416909,
+      "rf_importance": 0.020555668439003413
+    },
+    {
+      "feature": "total_energy",
+      "variance": 11711626502.73233,
+      "mutual_information": 0.3107060650695739,
+      "rf_importance": 0.02814502884678838
+    },
+    {
+      "feature": "spectral_kurtosis",
+      "variance": 100863.88822844745,
+      "mutual_information": 0.3049098094260674,
+      "rf_importance": 0.026883620731024096
+    },
+    {
+      "feature": "spectral_bandwidth",
+      "variance": 76630.25858016763,
+      "mutual_information": 0.30251265097091906,
+      "rf_importance": 0.046815927112584345
+    },
+    {
+      "feature": "num_peaks",
+      "variance": 88.48858609586331,
+      "mutual_information": 0.2623455207686063,
+      "rf_importance": 0.008361644234950292
+    },
+    {
+      "feature": "bit_rate_estimate",
+      "variance": 63.461121050515274,
+      "mutual_information": 0.2526938994847656,
+      "rf_importance": 0.018212987016385674
+    },
+    {
+      "feature": "peak_spacing_mean",
+      "variance": 154861.18412218976,
+      "mutual_information": 0.23522550373395745,
+      "rf_importance": 0.008208803735012813
+    },
+    {
+      "feature": "peak_spacing_std",
+      "variance": 17021.348664005458,
+      "mutual_information": 0.23367718742136345,
+      "rf_importance": 0.0029171217385297525
+    },
+    {
+      "feature": "duty_cycle",
+      "variance": 0.03914955013340449,
+      "mutual_information": 0.2143898081518425,
+      "rf_importance": 0.022620233262477075
+    },
+    {
+      "feature": "spectral_skewness",
+      "variance": 34.986191500771255,
+      "mutual_information": 0.19734526774178018,
+      "rf_importance": 0.015611689541219975
+    },
+    {
+      "feature": "min_magnitude",
+      "variance": 0.6453653737474679,
+      "mutual_information": 0.15358036680602183,
+      "rf_importance": 0.023987188437452525
+    },
+    {
+      "feature": "spectral_centroid",
+      "variance": 248321.67679959876,
+      "mutual_information": 0.12489236319519836,
+      "rf_importance": 0.01294962230024582
+    },
+    {
+      "feature": "spectral_rolloff",
+      "variance": 533686.2241508894,
+      "mutual_information": 0.11831525161535783,
+      "rf_importance": 0.012897300991494151
+    },
+    {
+      "feature": "zero_crossing_rate",
+      "variance": 0.0005675900951782925,
+      "mutual_information": 0.10537536384871427,
+      "rf_importance": 0.012448708486250242
+    },
+    {
+      "feature": "peak_frequency",
+      "variance": 567255.524344296,
+      "mutual_information": 0.07968678875280011,
+      "rf_importance": 0.012321786227867391
+    }
+  ],
+  "notes": [
+    "Analysis performed on non-locked development indices only.",
+    "Base 32 Phase-1 features preserved in order; engineered features appended when enabled."
+  ]
+}

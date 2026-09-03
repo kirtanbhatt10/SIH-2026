@@ -1,0 +1,309 @@
+{
+  "dataset_version": "dataset_v2.0",
+  "generator_version": "dataset_v2_generator-1.1",
+  "n_samples": 2500,
+  "split_seed": 42,
+  "train_size": 2039,
+  "test_size": 461,
+  "exact_duplicate_groups": [
+    {
+      "count": 25,
+      "sample_ids": [
+        "dataset_v2.0_benign_000374",
+        "dataset_v2.0_benign_000151",
+        "dataset_v2.0_benign_000165",
+        "dataset_v2.0_benign_000292",
+        "dataset_v2.0_benign_000380",
+        "dataset_v2.0_benign_000116",
+        "dataset_v2.0_benign_000496",
+        "dataset_v2.0_benign_000062",
+        "dataset_v2.0_benign_000111",
+        "dataset_v2.0_benign_000200",
+        "dataset_v2.0_benign_000370",
+        "dataset_v2.0_benign_000210",
+        "dataset_v2.0_benign_000220",
+        "dataset_v2.0_benign_000082",
+        "dataset_v2.0_benign_000361",
+        "dataset_v2.0_benign_000057",
+        "dataset_v2.0_benign_000271",
+        "dataset_v2.0_benign_000105",
+        "dataset_v2.0_benign_000244",
+        "dataset_v2.0_benign_000351",
+        "dataset_v2.0_benign_000119",
+        "dataset_v2.0_benign_000325",
+        "dataset_v2.0_benign_000335",
+        "dataset_v2.0_benign_000404",
+        "dataset_v2.0_benign_000219"
+      ],
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_groups": [
+        "benign|ambient|a20",
+        "benign|ambient_hf_boost|clean",
+        "benign|ambient|a30",
+        "benign|ambient|a40",
+        "benign|ambient_hf_boost|moderate",
+        "benign|ambient|a50",
+        "benign|ambient|a60"
+      ]
+    }
+  ],
+  "n_exact_duplicate_groups": 1,
+  "largest_exact_duplicate_group_size": 25,
+  "cross_split_exact_feature_matches": [
+    {
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "test_sample_id": "dataset_v2.0_benign_000210",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "test_sample_id": "dataset_v2.0_benign_000244",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a50",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "test_sample_id": "dataset_v2.0_benign_000351",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "test_sample_id": "dataset_v2.0_benign_000119",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a50",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "test_sample_id": "dataset_v2.0_benign_000335",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a60",
+      "train_group": "benign|ambient|a30"
+    }
+  ],
+  "n_cross_split_exact_matches": 6,
+  "near_duplicate_pairs_top": [
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000374",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a20"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000151",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a20"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000165",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient_hf_boost|clean"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000292",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000380",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a20"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000116",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a20"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000062",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000111",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000200",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000370",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000220",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient_hf_boost|clean"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000082",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000361",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a20"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000057",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a20"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000271",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a20"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000105",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient_hf_boost|moderate"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000325",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a20"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000404",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30"
+    },
+    {
+      "similarity": 1.0,
+      "test_sample_id": "dataset_v2.0_benign_000210",
+      "train_sample_id": "dataset_v2.0_benign_000374",
+      "test_label": 0,
+      "train_label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a20"
+    }
+  ],
+  "assessment": {
+    "verdict_code": "B_actual_dataset_leakage_or_evaluation_contamination",
+    "detail": "Exact feature vectors appear in both train and test partitions despite group-based splitting. This is not harmless preprocessing collision."
+  }
+}

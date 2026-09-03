@@ -1,0 +1,4 @@
+numpy>=1.24.0
+scipy>=1.10.0
+matplotlib>=3.7.0
+sounddevice>=0.4.6   # microphone capture (record_wav.py, scratch/diagnose_capture.py)

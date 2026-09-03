@@ -1,0 +1,199 @@
+{
+  "experiment_id": "accuracy_82_data_diversity_v1",
+  "generated_at_utc": "2026-08-19T05:59:41.180664+00:00",
+  "dataset_version": "dataset_v2_experiment.0",
+  "generator_version": "dataset_v2_generator-1.2-experiment-diversity",
+  "split_report": {
+    "dataset_dir": "C:\\Users\\kirtan ishankumar\\Desktop\\ai\\ml\\training_data_v2_experiment",
+    "split_manifest": "C:\\Users\\kirtan ishankumar\\Desktop\\ai\\ml\\experiments\\accuracy_82\\splits\\experiment_split_manifest.json",
+    "model_train": 1620,
+    "train_fit": 1380,
+    "inner_dev": 240,
+    "cal_dev": 343,
+    "locked_test": 537,
+    "outer_split_seed": 42,
+    "cal_dev_seed": 43,
+    "inner_dev_seed": 44,
+    "inner_dev_fraction": 0.15,
+    "class_counts": {
+      "model_train": {
+        "0": 301,
+        "1": 348,
+        "2": 319,
+        "3": 306,
+        "4": 346
+      },
+      "cal_dev": {
+        "0": 85,
+        "1": 83,
+        "2": 61,
+        "3": 80,
+        "4": 34
+      },
+      "locked_test": {
+        "0": 114,
+        "1": 69,
+        "2": 120,
+        "3": 114,
+        "4": 120
+      }
+    },
+    "locked_test_off_limits_until_final_candidate": true
+  },
+  "targets": {
+    "accuracy": 0.82,
+    "macro_f1": 0.82,
+    "benign_fpr": 0.1,
+    "threat_recall": 0.8
+  },
+  "frozen_baseline": {
+    "model": "linear_svm_balanced",
+    "calibration": "uncalibrated",
+    "dataset_version": "dataset_v2_clean.0",
+    "locked_test": {
+      "accuracy": 0.7948,
+      "macro_f1": 0.8246,
+      "weighted_f1": 0.7973,
+      "benign_precision": 0.875,
+      "benign_recall": 0.9032,
+      "benign_fpr": 0.0968,
+      "threat_precision": 0.8277,
+      "threat_recall": 0.8046,
+      "latency_ms_per_sample": 0.0285
+    }
+  },
+  "error_analysis_v2": "C:\\Users\\kirtan ishankumar\\Desktop\\ai\\ml\\experiments\\accuracy_82\\reports\\error_analysis_v2.json",
+  "best_cal_dev_candidate": {
+    "experiment": "C_secondary_model",
+    "model_name": "hist_gradient_boosting",
+    "feature_set": "base_32_plus_engineered",
+    "n_features": 40,
+    "best_params": {
+      "max_depth": 4,
+      "learning_rate": 0.12,
+      "max_leaf_nodes": 63
+    },
+    "accuracy": 0.8046647230320699,
+    "macro_f1": 0.7723010793829757,
+    "weighted_f1": 0.8084654762760609,
+    "benign_precision": 0.8902439024390244,
+    "benign_recall": 0.8588235294117647,
+    "benign_false_positive_rate": 0.1411764705882353,
+    "threat_precision": 0.7411140583554376,
+    "threat_recall": 0.7583521162760977,
+    "latency_ms_per_sample": 0.018628377063178724,
+    "candidate_key": "C|hist_gradient_boosting|base_40"
+  },
+  "ranked_cal_dev_candidates": [
+    {
+      "experiment": "C_secondary_model",
+      "model_name": "hist_gradient_boosting",
+      "feature_set": "base_32_plus_engineered",
+      "n_features": 40,
+      "best_params": {
+        "max_depth": 4,
+        "learning_rate": 0.12,
+        "max_leaf_nodes": 63
+      },
+      "accuracy": 0.8046647230320699,
+      "macro_f1": 0.7723010793829757,
+      "weighted_f1": 0.8084654762760609,
+      "benign_precision": 0.8902439024390244,
+      "benign_recall": 0.8588235294117647,
+      "benign_false_positive_rate": 0.1411764705882353,
+      "threat_precision": 0.7411140583554376,
+      "threat_recall": 0.7583521162760977,
+      "latency_ms_per_sample": 0.018628377063178724,
+      "candidate_key": "C|hist_gradient_boosting|base_40"
+    },
+    {
+      "experiment": "B_feature_extension",
+      "model_name": "linear_svm_balanced",
+      "feature_set": "base_32_plus_engineered",
+      "n_features": 40,
+      "best_params": {
+        "clf__C": 5.0
+      },
+      "accuracy": 0.793002915451895,
+      "macro_f1": 0.7733829643326329,
+      "weighted_f1": 0.7986425100292475,
+      "benign_precision": 0.8734177215189873,
+      "benign_recall": 0.8117647058823529,
+      "benign_false_positive_rate": 0.18823529411764706,
+      "threat_precision": 0.7817162965564792,
+      "threat_recall": 0.8104471889486586,
+      "latency_ms_per_sample": 0.00924285714231378,
+      "candidate_key": "B|linear_svm_balanced|base_40"
+    },
+    {
+      "experiment": "A_same_model",
+      "model_name": "linear_svm_balanced",
+      "feature_set": "base_32",
+      "n_features": 32,
+      "best_params": {
+        "clf__C": 5.0
+      },
+      "accuracy": 0.7900874635568513,
+      "macro_f1": 0.7698183417151723,
+      "weighted_f1": 0.7965873156280188,
+      "benign_precision": 0.8625,
+      "benign_recall": 0.8117647058823529,
+      "benign_false_positive_rate": 0.18823529411764706,
+      "threat_precision": 0.7811161582530018,
+      "threat_recall": 0.8030942477721881,
+      "latency_ms_per_sample": 0.012660738583353794,
+      "candidate_key": "A|linear_svm_balanced|base_32"
+    },
+    {
+      "experiment": "C_secondary_model",
+      "model_name": "rbf_svm_balanced",
+      "feature_set": "base_32_plus_engineered",
+      "n_features": 40,
+      "best_params": {
+        "clf__C": 5.0,
+        "clf__gamma": "auto"
+      },
+      "accuracy": 0.7813411078717201,
+      "macro_f1": 0.747909966245981,
+      "weighted_f1": 0.7881738323788477,
+      "benign_precision": 0.8658536585365854,
+      "benign_recall": 0.8352941176470589,
+      "benign_false_positive_rate": 0.16470588235294117,
+      "threat_precision": 0.7226491293663166,
+      "threat_recall": 0.7381115590617049,
+      "latency_ms_per_sample": 0.04523177842619314,
+      "candidate_key": "C|rbf_svm_balanced|base_40"
+    },
+    {
+      "experiment": "C_secondary_model",
+      "model_name": "extra_trees_balanced",
+      "feature_set": "base_32_plus_engineered",
+      "n_features": 40,
+      "best_params": {
+        "n_estimators": 500,
+        "max_depth": 48,
+        "min_samples_leaf": 2
+      },
+      "accuracy": 0.7725947521865889,
+      "macro_f1": 0.7411190468376357,
+      "weighted_f1": 0.7792267775237115,
+      "benign_precision": 0.8717948717948718,
+      "benign_recall": 0.8,
+      "benign_false_positive_rate": 0.2,
+      "threat_precision": 0.710333110516934,
+      "threat_recall": 0.7390849197174426,
+      "latency_ms_per_sample": 0.2450477162281183,
+      "candidate_key": "C|extra_trees_balanced|base_40"
+    }
+  ],
+  "locked_test_evaluated": true,
+  "reproducibility": {
+    "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "sklearn": "1.6.1",
+    "numpy": "2.1.3",
+    "git_commit": "6da11dc37a2e7e42750239564b95d3a70e42cbed"
+  },
+  "promotion_rule": "Do not overwrite phase3_clean/phase4_clean/phase5_clean.",
+  "frozen_artifacts_untouched": true
+}

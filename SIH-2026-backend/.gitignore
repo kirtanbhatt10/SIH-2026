@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment / secrets
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Generated audio/data
+*.wav
+*.mp3
+*.flac
+*.npy
+*.npz
+generated_payloads/
+forensic_captures/
+
+# Unrelated reference material (not part of SIH application)
+Reverse_Shell-main/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Model binaries
+*.pt
+*.pth
+*.onnx
+*.h5
+*.pkl

@@ -1,0 +1,37 @@
+{
+  "dataset_version": "dataset_v2_clean.0",
+  "generator_version": "dataset_v2_generator-1.2",
+  "n_samples": 2500,
+  "duplicate_groups": [],
+  "n_duplicate_groups": 0,
+  "cross_split_exact_matches": [],
+  "n_cross_split_exact_matches": 0,
+  "collapsed_squelch_by_class": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0
+  },
+  "benign_vs_ook_feature_separation": {
+    "benign_duty_cycle_mean": 0.923,
+    "ook_duty_cycle_mean": 0.667125,
+    "benign_bit_rate_mean": 2.624999999969238,
+    "ook_bit_rate_mean": 12.843749999849486,
+    "benign_tonal_prominence_mean": 65.46979019567569,
+    "ook_tonal_prominence_mean": 84.37364713206108
+  },
+  "chirp_perfect_separability_note": "Chirp sweeps produce unique start/end/sweep feature combinations; near-perfect separability is expected on synthetic chirp class.",
+  "root_causes": [
+    {
+      "category": "F",
+      "name": "benign_envelope_mimics_ook",
+      "detail": "Benign ambient envelope features yield high duty_cycle (~0.82), overlapping OOK modulation statistics and causing benign->ook confusion."
+    }
+  ],
+  "recommended_generator_fixes": [
+    "Reject/regenerate collapsed squelch fingerprints",
+    "Add continuous in-band benign variants (steady_ultrasonic_hum, band_limited_hiss)",
+    "Do not treat squelched ambient as legitimate benign diversity"
+  ]
+}

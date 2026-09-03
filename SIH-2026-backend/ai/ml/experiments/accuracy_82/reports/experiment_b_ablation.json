@@ -1,0 +1,14 @@
+{
+  "base_32": {
+    "accuracy": 0.7900874635568513,
+    "macro_f1": 0.7698183417151723,
+    "benign_false_positive_rate": 0.18823529411764706,
+    "threat_recall": 0.8030942477721881
+  },
+  "base_40": {
+    "accuracy": 0.793002915451895,
+    "macro_f1": 0.7733829643326329,
+    "benign_false_positive_rate": 0.18823529411764706,
+    "threat_recall": 0.8104471889486586
+  }
+}

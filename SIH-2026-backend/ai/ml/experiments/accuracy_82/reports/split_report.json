@@ -1,0 +1,37 @@
+{
+  "dataset_dir": "C:\\Users\\kirtan ishankumar\\Desktop\\ai\\ml\\training_data_v2_experiment",
+  "split_manifest": "C:\\Users\\kirtan ishankumar\\Desktop\\ai\\ml\\experiments\\accuracy_82\\splits\\experiment_split_manifest.json",
+  "model_train": 1620,
+  "train_fit": 1380,
+  "inner_dev": 240,
+  "cal_dev": 343,
+  "locked_test": 537,
+  "outer_split_seed": 42,
+  "cal_dev_seed": 43,
+  "inner_dev_seed": 44,
+  "inner_dev_fraction": 0.15,
+  "class_counts": {
+    "model_train": {
+      "0": 301,
+      "1": 348,
+      "2": 319,
+      "3": 306,
+      "4": 346
+    },
+    "cal_dev": {
+      "0": 85,
+      "1": 83,
+      "2": 61,
+      "3": 80,
+      "4": 34
+    },
+    "locked_test": {
+      "0": 114,
+      "1": 69,
+      "2": 120,
+      "3": 114,
+      "4": 120
+    }
+  },
+  "locked_test_off_limits_until_final_candidate": true
+}

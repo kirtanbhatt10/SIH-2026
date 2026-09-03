@@ -1,0 +1,180 @@
+{
+  "dataset_version": "dataset_v2.0",
+  "generator_version": "dataset_v2_generator-1.1",
+  "n_samples": 2500,
+  "duplicate_groups": [
+    {
+      "count": 25,
+      "sample_ids": [
+        "dataset_v2.0_benign_000374",
+        "dataset_v2.0_benign_000151",
+        "dataset_v2.0_benign_000165",
+        "dataset_v2.0_benign_000292",
+        "dataset_v2.0_benign_000380",
+        "dataset_v2.0_benign_000116",
+        "dataset_v2.0_benign_000496",
+        "dataset_v2.0_benign_000062",
+        "dataset_v2.0_benign_000111",
+        "dataset_v2.0_benign_000200",
+        "dataset_v2.0_benign_000370",
+        "dataset_v2.0_benign_000210",
+        "dataset_v2.0_benign_000220",
+        "dataset_v2.0_benign_000082",
+        "dataset_v2.0_benign_000361",
+        "dataset_v2.0_benign_000057",
+        "dataset_v2.0_benign_000271",
+        "dataset_v2.0_benign_000105",
+        "dataset_v2.0_benign_000244",
+        "dataset_v2.0_benign_000351",
+        "dataset_v2.0_benign_000119",
+        "dataset_v2.0_benign_000325",
+        "dataset_v2.0_benign_000335",
+        "dataset_v2.0_benign_000404",
+        "dataset_v2.0_benign_000219"
+      ],
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_groups": [
+        "benign|ambient_hf_boost|clean",
+        "benign|ambient_hf_boost|moderate",
+        "benign|ambient|a20",
+        "benign|ambient|a30",
+        "benign|ambient|a40",
+        "benign|ambient|a50",
+        "benign|ambient|a60"
+      ],
+      "benign_variants": [
+        "ambient",
+        "ambient_hf_boost"
+      ],
+      "peak_amplitudes": [
+        0.164454488098764,
+        0.1913414512120821,
+        0.520138028359993,
+        0.3332933141675159,
+        0.1737389748721989
+      ]
+    }
+  ],
+  "n_duplicate_groups": 1,
+  "cross_split_exact_matches": [
+    {
+      "test_sample_id": "dataset_v2.0_benign_000496",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30",
+      "test_variant": "ambient",
+      "train_variant": "ambient"
+    },
+    {
+      "test_sample_id": "dataset_v2.0_benign_000210",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30",
+      "test_variant": "ambient",
+      "train_variant": "ambient"
+    },
+    {
+      "test_sample_id": "dataset_v2.0_benign_000244",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a50",
+      "train_group": "benign|ambient|a30",
+      "test_variant": "ambient",
+      "train_variant": "ambient"
+    },
+    {
+      "test_sample_id": "dataset_v2.0_benign_000351",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a40",
+      "train_group": "benign|ambient|a30",
+      "test_variant": "ambient",
+      "train_variant": "ambient"
+    },
+    {
+      "test_sample_id": "dataset_v2.0_benign_000119",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a50",
+      "train_group": "benign|ambient|a30",
+      "test_variant": "ambient",
+      "train_variant": "ambient"
+    },
+    {
+      "test_sample_id": "dataset_v2.0_benign_000335",
+      "train_sample_id": "dataset_v2.0_benign_000219",
+      "label": 0,
+      "test_group": "benign|ambient|a60",
+      "train_group": "benign|ambient|a30",
+      "test_variant": "ambient",
+      "train_variant": "ambient"
+    }
+  ],
+  "n_cross_split_exact_matches": 6,
+  "collapsed_squelch_by_class": {
+    "0": 25,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0
+  },
+  "benign_vs_ook_feature_separation": {
+    "benign_duty_cycle_mean": 0.782375,
+    "ook_duty_cycle_mean": 0.667125,
+    "benign_bit_rate_mean": 6.117187499928313,
+    "ook_bit_rate_mean": 12.843749999849486,
+    "benign_tonal_prominence_mean": 26.458474120466796,
+    "ook_tonal_prominence_mean": 84.37364713206108
+  },
+  "chirp_perfect_separability_note": "Chirp sweeps produce unique start/end/sweep feature combinations; near-perfect separability is expected on synthetic chirp class.",
+  "root_causes": [
+    {
+      "category": "B",
+      "name": "different_audio_collapsing_to_identical_features",
+      "detail": "Multiple benign variants/groups share identical 32-D vectors after bandpass squelch (peak < 0.05 -> zeros -> fixed fingerprint)."
+    },
+    {
+      "category": "B/E",
+      "name": "cross_split_exact_feature_leakage",
+      "detail": "Grouped split prevents generation_group overlap but identical collapsed feature vectors still appear in train and test."
+    },
+    {
+      "category": "F",
+      "name": "benign_envelope_mimics_ook",
+      "detail": "Benign ambient envelope features yield high duty_cycle (~0.82), overlapping OOK modulation statistics and causing benign->ook confusion."
+    }
+  ],
+  "recommended_generator_fixes": [
+    "Reject/regenerate collapsed squelch fingerprints",
+    "Add continuous in-band benign variants (steady_ultrasonic_hum, band_limited_hiss)",
+    "Do not treat squelched ambient as legitimate benign diversity"
+  ]
+}

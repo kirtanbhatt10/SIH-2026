@@ -1,0 +1,56 @@
+[
+  {
+    "model": "random_forest",
+    "accuracy": 0.7494600431965442,
+    "macro_f1": 0.7829121923604668,
+    "benign_fpr": 0.11827956989247312,
+    "benign_recall": 0.8817204301075269,
+    "threat_recall": 0.7558203359638767,
+    "latency_ms_per_sample": 0.05965968322507867
+  },
+  {
+    "model": "rbf_svm",
+    "accuracy": 0.7732181425485961,
+    "macro_f1": 0.8054530114845649,
+    "benign_fpr": 0.10752688172043011,
+    "benign_recall": 0.8924731182795699,
+    "threat_recall": 0.7857981731187473,
+    "latency_ms_per_sample": 0.06464758819362566
+  },
+  {
+    "model": "logistic_regression",
+    "accuracy": 0.7991360691144709,
+    "macro_f1": 0.8262142457322698,
+    "benign_fpr": 0.10752688172043011,
+    "benign_recall": 0.8924731182795699,
+    "threat_recall": 0.8121015348288076,
+    "latency_ms_per_sample": 0.0010902807774697163
+  },
+  {
+    "model": "logistic_regression_balanced",
+    "accuracy": 0.7991360691144709,
+    "macro_f1": 0.8262590826790517,
+    "benign_fpr": 0.10752688172043011,
+    "benign_recall": 0.8924731182795699,
+    "threat_recall": 0.8117866981503346,
+    "latency_ms_per_sample": 0.0010508999273086588
+  },
+  {
+    "model": "random_forest_balanced",
+    "accuracy": 0.734341252699784,
+    "macro_f1": 0.7689939091888017,
+    "benign_fpr": 0.12903225806451613,
+    "benign_recall": 0.8709677419354839,
+    "threat_recall": 0.7424149216015244,
+    "latency_ms_per_sample": 0.10323326133946714
+  },
+  {
+    "model": "linear_svm_balanced",
+    "accuracy": 0.8077753779697624,
+    "macro_f1": 0.8342152890527303,
+    "benign_fpr": 0.08602150537634409,
+    "benign_recall": 0.9139784946236559,
+    "threat_recall": 0.8174931129476585,
+    "latency_ms_per_sample": 0.012873218143137981
+  }
+]
